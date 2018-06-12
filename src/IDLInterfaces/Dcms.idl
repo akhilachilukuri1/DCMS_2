@@ -2,7 +2,18 @@ module DcmsApp
 {
   interface Dcms
   {
-  string sayHello();
-  oneway void shutdown();
+	  	string sayHello();
+	  	
+	  	string createTRecord(in string teacher);
+	
+		string createSRecord(in string student);
+	
+		string getRecordCount();
+	
+		string editRecord(in string recordID, in string fieldname, in string newvalue);
+		
+		string editRecordForCourses(in string recordID, in string fieldName, in string newValue);
+			
+	  	oneway void shutdown();
   };
 };
