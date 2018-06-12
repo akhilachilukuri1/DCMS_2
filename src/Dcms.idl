@@ -1,0 +1,8 @@
+module DcmsApp
+{
+  interface Dcms
+  {
+  string sayHello();
+  oneway void shutdown();
+  };
+};
