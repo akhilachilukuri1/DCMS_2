@@ -1,3 +1,5 @@
+package Client;
+
 import DcmsApp.*;
 import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.*;
