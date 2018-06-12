@@ -2,12 +2,11 @@ package Client;
 
 import DcmsApp.*;
 import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
 import org.omg.CORBA.*;
 
 public class DcmsClient
 {
-  static Dcms dcmsImpl;
+  static Dcms dcmsImplMTL,dcmsImplLVL,dcmsImplDDO;
 
   public static void main(String args[])
     {
@@ -23,12 +22,15 @@ public class DcmsClient
         NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
  
         // resolve the Object Reference in Naming
-        String name = "Hello";
-        dcmsImpl = DcmsHelper.narrow(ncRef.resolve_str(name));
+        dcmsImplMTL = DcmsHelper.narrow(ncRef.resolve_str("MTL"));
+        dcmsImplLVL = DcmsHelper.narrow(ncRef.resolve_str("LVL"));
+        dcmsImplDDO = DcmsHelper.narrow(ncRef.resolve_str("DDO"));
 
-        System.out.println("Obtained a handle on server object: " + dcmsImpl);
-        System.out.println(dcmsImpl.sayHello());
-        //helloImpl.shutdown();
+        System.out.println("Obtained a handle on server object: " + dcmsImplMTL);
+        System.out.println(dcmsImplMTL.sayHello()+" from MTL");
+        System.out.println(dcmsImplMTL.sayHello()+" from LVL");
+        System.out.println(dcmsImplMTL.sayHello()+" from DDO");
+        //dcmsImpl.shutdown();
 
 	} catch (Exception e) {
           System.out.println("ERROR : " + e) ;
