@@ -17,7 +17,7 @@ import Conf.ServerCenterLocation;
 public class DcmsServer {
 	static DcmsServerImpl serverMTL,serverLVL,serverDDO;
 	static HashMap<String,DcmsServerImpl> serverRepo;
-	
+	static Dcms mtlhref,lvlhref,ddohref;
 	private static void init(){
 
 		boolean isMtlDir = new File(Constants.LOG_DIR+ServerCenterLocation.MTL.toString()).mkdir();
@@ -57,9 +57,9 @@ public class DcmsServer {
 		      org.omg.CORBA.Object mtlRef = rootpoa.servant_to_reference(mtlServer);
 		      org.omg.CORBA.Object lvlRef = rootpoa.servant_to_reference(lvlServer);
 		      org.omg.CORBA.Object ddoRef = rootpoa.servant_to_reference(ddoServer);
-		      Dcms mtlhref = DcmsHelper.narrow(mtlRef);
-		      Dcms lvlhref = DcmsHelper.narrow(lvlRef);
-		      Dcms ddohref = DcmsHelper.narrow(ddoRef);
+		       mtlhref = DcmsHelper.narrow(mtlRef);
+		       lvlhref = DcmsHelper.narrow(lvlRef);
+		       ddohref = DcmsHelper.narrow(ddoRef);
 
 			  
 		      // get the root naming context

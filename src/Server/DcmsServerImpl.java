@@ -141,7 +141,115 @@ class DcmsServerImpl extends DcmsPOA {
 
 		return "Operation not performed!";
 	}
+	public String transferRecord(String ManagerID, String recordID, String remoteCenterServerName) {
+		String type = recordID.substring(0, 2);
 
+		if (type.equals("TR")) {
+			return transferTRRecord(ManagerID, recordID, remoteCenterServerName);
+		}
+
+		else if (type.equals("SR")) {
+			return transferSRRecord(ManagerID, recordID, remoteCenterServerName);
+		}
+
+		logManager.logger.log(Level.INFO, "Record transfer successful");
+
+		return "Operation not performed!";
+	}
+	public String transferTRRecord(String ManagerID,String recordID,String remoteCenterServerName)
+	{
+		logManager.logger.log(Level.INFO,ManagerID+" has initiated the record transfer for the recordID: "+recordID+" operation from "+this.IPaddress+" to "+remoteCenterServerName);
+		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
+
+			List<Record> mylist = val.getValue();
+			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
+
+			// System.out.println(record);
+			if (record.isPresent()) {
+				
+					Teacher teachobj=(Teacher) record.get();
+					if(remoteCenterServerName.equalsIgnoreCase("MTL"))
+					{
+						String key=val.getKey();
+						mylist.remove(teachobj);
+						recordsMap.put(key, mylist);
+						DcmsServer.mtlhref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+						return "record with ID "+recordID+" transferred to MTL ";
+					}else
+						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
+						{
+							String key=val.getKey();
+							mylist.remove(teachobj);
+							recordsMap.put(key, mylist);
+							DcmsServer.lvlhref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+							return "record with ID "+recordID+" transferred to LVL ";
+						}
+						else
+							if(remoteCenterServerName.equalsIgnoreCase("DDO"))
+							{
+								String key=val.getKey();
+								mylist.remove(teachobj);
+								recordsMap.put(key, mylist);
+								DcmsServer.ddohref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+								return "record with ID "+recordID+" transferred to DDO ";
+							}
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "record with ID "+recordID+" is not transferred successfully ";
+				
+			}
+		}
+		return "Record with " + recordID + " not found";
+
+	
+	
+	}
+	public String transferSRRecord(String ManagerID,String recordID,String remoteCenterServerName)
+	{
+		logManager.logger.log(Level.INFO,ManagerID+" has initiated the record transfer for the recordID: "+recordID+" operation from "+this.IPaddress+" to "+remoteCenterServerName);
+		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
+
+			List<Record> mylist = val.getValue();
+			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
+
+			// System.out.println(record);
+			if (record.isPresent()) {
+				
+					Student studentobj=(Student) record.get();
+					if(remoteCenterServerName.equalsIgnoreCase("MTL"))
+					{
+						String key=val.getKey();
+						mylist.remove(studentobj);
+						recordsMap.put(key, mylist);
+						DcmsServer.mtlhref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+						return "record with ID "+recordID+" transferred to MTL ";
+					}else
+						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
+						{
+							String key=val.getKey();
+							mylist.remove(studentobj);
+							recordsMap.put(key, mylist);
+							DcmsServer.lvlhref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+							return "record with ID "+recordID+" transferred to LVL ";
+						}
+						else
+							if(remoteCenterServerName.equalsIgnoreCase("DDO"))
+							{
+								String key=val.getKey();
+								mylist.remove(studentobj);
+								recordsMap.put(key, mylist);
+								DcmsServer.ddohref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+								return "record with ID "+recordID+" transferred to DDO ";
+							}
+					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					return "record with ID "+recordID+" is not transferred successfully ";
+				
+			}
+		}
+		return "Record with " + recordID + " not found";
+
+	
+	}
+	
 	// Editing students records
 	private String editSRRecord(String recordID, String fieldname, String newvalue) {
 

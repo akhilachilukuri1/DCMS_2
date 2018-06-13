@@ -8,13 +8,13 @@ import java.util.List;
 public class Student extends Record implements Serializable {
 	String firstName;
 	String lastName;
-	List<String> CoursesRegistered;
+	String CoursesRegistered;
 	String status;
 	String statusDate;
 	String studentID;
 //initiating the CoursesRegistered arraylist for every instance of the student created
 	public Student() {
-		CoursesRegistered = new ArrayList<>();
+		///CoursesRegistered = new ArrayList<>();
 	}
 
 	public Student(String studentID, String firstName, String lastname) {
@@ -37,12 +37,12 @@ public class Student extends Record implements Serializable {
 		this.lastName = lastName;
 	}
 //getting the list of the courses registered
-	public List<String> getCoursesRegistered() {
+	public String getCoursesRegistered() {
 		return CoursesRegistered;
 	}
 //setting the courses registered to the student instance
-	public void setCoursesRegistered(List<String> courses) {
-		CoursesRegistered = courses;
+	public void setCoursesRegistered(String courses) {
+		this.CoursesRegistered = courses;
 	}
 //getting the status of the student
 	public String isStatus() {
