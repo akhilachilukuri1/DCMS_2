@@ -173,7 +173,7 @@ class DcmsServerImpl extends DcmsPOA {
 						String key=val.getKey();
 						mylist.remove(teachobj);
 						recordsMap.put(key, mylist);
-						DcmsServer.mtlhref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+						DcmsServer.mtlhref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
 						return "record with ID "+recordID+" transferred to MTL ";
 					}else
 						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
@@ -181,7 +181,7 @@ class DcmsServerImpl extends DcmsPOA {
 							String key=val.getKey();
 							mylist.remove(teachobj);
 							recordsMap.put(key, mylist);
-							DcmsServer.lvlhref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+							DcmsServer.lvlhref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
 							return "record with ID "+recordID+" transferred to LVL ";
 						}
 						else
@@ -190,7 +190,7 @@ class DcmsServerImpl extends DcmsPOA {
 								String key=val.getKey();
 								mylist.remove(teachobj);
 								recordsMap.put(key, mylist);
-								DcmsServer.ddohref.createTRecord(teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+								DcmsServer.ddohref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
 								return "record with ID "+recordID+" transferred to DDO ";
 							}
 					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
@@ -220,7 +220,7 @@ class DcmsServerImpl extends DcmsPOA {
 						String key=val.getKey();
 						mylist.remove(studentobj);
 						recordsMap.put(key, mylist);
-						DcmsServer.mtlhref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+						DcmsServer.mtlhref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
 						return "record with ID "+recordID+" transferred to MTL ";
 					}else
 						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
@@ -228,7 +228,7 @@ class DcmsServerImpl extends DcmsPOA {
 							String key=val.getKey();
 							mylist.remove(studentobj);
 							recordsMap.put(key, mylist);
-							DcmsServer.lvlhref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+							DcmsServer.lvlhref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
 							return "record with ID "+recordID+" transferred to LVL ";
 						}
 						else
@@ -237,7 +237,7 @@ class DcmsServerImpl extends DcmsPOA {
 								String key=val.getKey();
 								mylist.remove(studentobj);
 								recordsMap.put(key, mylist);
-								DcmsServer.ddohref.createTRecord(studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+								DcmsServer.ddohref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
 								return "record with ID "+recordID+" transferred to DDO ";
 							}
 					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
