@@ -126,15 +126,15 @@ class DcmsServerImpl extends DcmsPOA {
 
 	// Editing student and teacher records
 	@Override
-	public String editRecord(String recordID, String fieldname, String newvalue) {
+	public String editRecord(String managerID,String recordID, String fieldname, String newvalue) {
 		String type = recordID.substring(0, 2);
 
 		if (type.equals("TR")) {
-			return editTRRecord(recordID, fieldname, newvalue);
+			return editTRRecord(managerID,recordID, fieldname, newvalue);
 		}
 
 		else if (type.equals("SR")) {
-			return editSRRecord(recordID, fieldname, newvalue);
+			return editSRRecord(managerID,recordID, fieldname, newvalue);
 		}
 
 		logManager.logger.log(Level.INFO, "Record edit successful");
@@ -251,7 +251,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 	
 	// Editing students records
-	private String editSRRecord(String recordID, String fieldname, String newvalue) {
+	private String editSRRecord(String maangerID,String recordID, String fieldname, String newvalue) {
 
 		// System.out.println(recordsMap);
 
@@ -262,12 +262,12 @@ class DcmsServerImpl extends DcmsPOA {
 			if (record.isPresent()) {
 				if (record.isPresent() && fieldname.equals("Status")) {
 					((Student) record.get()).setStatus(newvalue);
-					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					logManager.logger.log(Level.INFO, maangerID+"Updated the records\t" + location);
 					return "Updated record with status :: " + newvalue;
 					// ((Student) record.get()).setStatus(null);
 				} else if (record.isPresent() && fieldname.equals("StatusDate")) {
 					((Student) record.get()).setStatusDate(newvalue);
-					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					logManager.logger.log(Level.INFO, maangerID+"Updated the records\t" + location);
 					return "Updated record with status date :: " + newvalue;
 				}
 			}
@@ -276,7 +276,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	// Editing Teacher records
-	private String editTRRecord(String recordID, String fieldname, String newvalue) {
+	private String editTRRecord(String managerID,String recordID, String fieldname, String newvalue) {
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();
@@ -286,19 +286,19 @@ class DcmsServerImpl extends DcmsPOA {
 			if (record.isPresent()) {
 				if (record.isPresent() && fieldname.equals("Phone")) {
 					((Teacher) record.get()).setPhone(newvalue);
-					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
 					return "Updated record with Phone :: " + newvalue;
 				}
 
 				else if (record.isPresent() && fieldname.equals("Address")) {
 					((Teacher) record.get()).setAddress(newvalue);
-					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
 					return "Updated record with address :: " + newvalue;
 				}
 
 				else if (record.isPresent() && fieldname.equals("Location")) {
 					((Teacher) record.get()).setLocation(newvalue);
-					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
+					logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
 					return "Updated record with location :: " + newvalue;
 				}
 			}
@@ -306,8 +306,10 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Record with " + recordID + " not found";
 	}
 
+
+
 	@Override
-	public String editRecordForCourses(String recordID, String fieldName, String newValue) {
+	public String editRecordForCourses(String managerID, String recordID, String fieldName, String newValue) {
 		// TODO Auto-generated method stub
 		return null;
 	}

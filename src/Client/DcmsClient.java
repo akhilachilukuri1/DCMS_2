@@ -110,7 +110,7 @@ public class DcmsClient
 						break;
 					}
 					System.out.println(
-							serverloc.createTRecord(firstNameT+","+lastNameT+","+addressT+","+phoneT+","+specilizationT+","+locationT));//Initiating teacher record create request
+							serverloc.createTRecord(managerID+","+firstNameT+","+lastNameT+","+addressT+","+phoneT+","+specilizationT+","+locationT));//Initiating teacher record create request
 					break;
 				case 2:
 					//Create the Student record
@@ -143,7 +143,7 @@ public class DcmsClient
 						status="Invalid Status";
 					}
 					System.out.println(
-							serverloc.createSRecord(firstNameS+","+lastNameS+","+courses+","+status+","+statusDate));
+							serverloc.createSRecord(managerID+","+firstNameS+","+lastNameS+","+courses+","+status+","+statusDate));
 					break;
 				case 3:
 					//Get the record count
@@ -213,7 +213,7 @@ public class DcmsClient
 							courses.add(course);
 							newCourses=newCourses+","+course;
 						}
-						serverloc.editRecordForCourses(recordID, fieldName, newCourses);
+						serverloc.editRecordForCourses(managerID,recordID, fieldName, newCourses);
 					}
 					else {
 						//implementation for editing field other than CoursesRegistered
@@ -256,7 +256,7 @@ public class DcmsClient
 							newValue = br.readLine();
 							
 						}
-					System.out.println(serverloc.editRecord(recordID, fieldName, newValue));
+					System.out.println(serverloc.editRecord(managerID,recordID, fieldName, newValue));
 					}
 					break;
 				case 5:	System.out.println("Enter the record ID");
@@ -268,7 +268,7 @@ public class DcmsClient
 							System.out.println("Invalid loaction! Please try again");
 							location = br.readLine();
 						}
-						
+						serverloc.transferRecord(managerID, recordID, location);
 					break;
 				case 6:
 					//Logout manager

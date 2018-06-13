@@ -129,22 +129,22 @@ public class ClientImp {
 		return message;
 	}
 //sending the request for editing the record in the server by giving the new values
-	public String editRecord(String recordID, String fieldname, String newvalue) {
+	public String editRecord(String managerID,String recordID, String fieldname, String newvalue) {
 		String message = "";
-		logManager.logger.log(Level.INFO, "Initiating the record edit request");
+		logManager.logger.log(Level.INFO, managerID+"has Initiated the record edit request for "+recordID);
 		
-			message = serverLoc.editRecord(recordID, fieldname, newvalue);
+			message = serverLoc.editRecord(managerID,recordID, fieldname, newvalue);
 			System.out.println(message);
 		
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}
 //sending the request for editing the courses registered for a given student 
-	public String editRecordForCourses(String recordID, String fieldname, String newCourses) {
+	public String editRecordForCourses(String managerID,String recordID, String fieldname, String newCourses) {
 		String message = "";
-		logManager.logger.log(Level.INFO, "Initiating the record edit request");
+		logManager.logger.log(Level.INFO, managerID+"has Initiated the record edit request for "+recordID);
 		
-			serverLoc.editRecordForCourses(recordID, fieldname, newCourses);
+			serverLoc.editRecordForCourses(managerID,recordID, fieldname, newCourses);
 		
 		logManager.logger.log(Level.INFO, message);
 		return message;
