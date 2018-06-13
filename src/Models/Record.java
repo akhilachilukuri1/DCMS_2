@@ -1,9 +1,25 @@
 package Models;
+/**
+ * This class creates the Object of Record type and implements serialization
+ */
+import java.io.Serializable;
+
 //This Class holds the setters and getters for the firstName,lastName and ID for the every record that is inserted into the server
-public class Record {
+public abstract class Record implements Serializable{
 	private String firstName;
 	private String lastname;
 	private String recordID;
+	
+	//instantiating the record object with the given details
+		public Record(String recordID, String firstName, String lastname) {
+			this.setFirstName(firstName);
+			this.setLastname(lastname);
+			this.setRecordID(recordID);
+		}
+
+	
+	public abstract String serialize();
+
 //getting the record ID 
 	public String getRecordID() {
 		return recordID;
@@ -15,12 +31,6 @@ public class Record {
 
 	public Record() {
 
-	}
-//instantiating the record object with the given details
-	public Record(String recordID, String firstName, String lastname) {
-		this.setFirstName(firstName);
-		this.setLastname(lastname);
-		this.setRecordID(recordID);
 	}
 //getting the first name of the record
 	public String getFirstName() {
