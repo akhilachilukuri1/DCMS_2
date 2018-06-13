@@ -17,7 +17,6 @@ import Conf.ServerCenterLocation;
 import Models.Record;
 import Models.Student;
 import Models.Teacher;
-import java.util.Properties;
 
 class DcmsServerImpl extends DcmsPOA {
 	private ORB orb;
@@ -25,7 +24,7 @@ class DcmsServerImpl extends DcmsPOA {
 	LogManager logManager;
 	ServerUDP serverUDP;
 	String IPaddress;
-	HashMap<String, List<Record>> recordsMap;
+	public static HashMap<String, List<Record>> recordsMap;
 	static int studentCount = 0;
 	static int teacherCount = 0;
 	String recordsCount;
@@ -71,16 +70,101 @@ class DcmsServerImpl extends DcmsPOA {
 
 	@Override
 	public String createTRecord(String teacher) {
-		// TODO Auto-generated method stub
-		return null;
+
+		System.out.println("Teacher: "+teacher);
+		String temp[] = teacher.split(",");
+		
+		
+		String managerID = temp[0];
+		String teacherID = "TR"+ (++teacherCount);
+		String firstName = temp[1];
+		String lastname = temp[2];
+		String address= temp[3];
+		String phone = temp[4];
+		String specialization = temp[5];
+		String location = temp[6];
+		
+		Teacher teacherObj = new Teacher(managerID, teacherID, firstName,  lastname, address,  phone, specialization,  location);
+		String key = lastname.substring(0, 1);
+		// adding the teacher record to HashMap
+		String message = addRecordToHashMap(key, teacherObj, null);
+
+		//System.out.println(recordsMap);
+
+		System.out.println("teacher is added " + teacherObj + " with this key " + key+" by Manager "+managerID );
+		logManager.logger.log(Level.INFO, "Teacher record created " + teacherID + " by Manager : "+ managerID);
+		return teacherID;
+
+		
 	}
 
 	@Override
 	public String createSRecord(String student) {
-		// TODO Auto-generated method stub
-		return null;
+
+		
+		String temp[] = student.split(",");
+		
+		String managerID= temp[0];
+		String firstName= temp[1];
+		String lastName= temp[2];
+		String CoursesRegistered= temp[3];
+		String status= temp[4];
+		String statusDate= temp[5];
+		String studentID = "SR" + (studentCount + 1);
+		
+		Student studentObj = new Student(managerID, studentID,  firstName,  lastName,  CoursesRegistered,  status, statusDate);
+	
+		String key = lastName.substring(0, 1);
+		// adding the student record to HashMap
+		String message = addRecordToHashMap(key, null, studentObj);
+
+		//System.out.println(recordsMap);
+
+		System.out.println(" Student is added " + studentObj + " with this key " + key+"by Manager "+managerID  );
+		logManager.logger.log(Level.INFO, "Student record created " + studentID+" by manager : "+ managerID);
+
+		return studentID;
 	}
 
+	
+
+	// adding the records into HashMap
+		private static String addRecordToHashMap(String key, Teacher teacher, Student student) {
+
+			String message = "Error";
+			if (teacher != null) {
+				List<Record> recordList = recordsMap.get(key);
+				if (recordList != null) {
+					recordList.add(teacher);
+				} else {
+					List<Record> records = new ArrayList<Record>();
+					records.add(teacher);
+					recordList = records;
+				}
+				recordsMap.put(key, recordList);
+				message = "success";
+			}
+
+			if (student != null) {
+				List<Record> recordList = recordsMap.get(key);
+				if (recordList != null) {
+					recordList.add(student);
+				} else {
+					List<Record> records = new ArrayList<Record>();
+					records.add(student);
+					recordList = records;
+				}
+				recordsMap.put(key, recordList);
+				message = "success";
+			}
+
+			return message;
+		}
+
+	
+	
+	
+	
 	private int getCurrServerCnt() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : this.recordsMap.entrySet()) {
@@ -307,10 +391,22 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 
+		
 
 	@Override
-	public String editRecordForCourses(String managerID, String recordID, String fieldName, String newValue) {
-		// TODO Auto-generated method stub
+	public String editRecordForCourses(String managerID, String recordID, String fieldName, String NewCourses) {
+		
+		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
+
+			List<Record> mylist = value.getValue();
+			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
+			if (record.isPresent() && fieldName.equals("CoursesRegistered")) {
+				((Student) record.get()).setCoursesRegistered(NewCourses);
+				logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
+			}
+		}
+		
+		
 		return null;
 	}
 }

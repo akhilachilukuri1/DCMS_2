@@ -13,13 +13,24 @@ public class Student extends Record implements Serializable {
 	String status;
 	String statusDate;
 	String studentID;
+	
+	public String getManagerID() {
+		return ManagerID;
+	}
+
+
+	public void setManagerID(String managerID) {
+		ManagerID = managerID;
+	}
+	private String ManagerID;
 
 	// initiating the CoursesRegistered arraylist for every instance of the student
 	// created
-	public Student(String studentID, String firstName, String lastname, String CoursesRegistered, String status,
+	public Student(String managerID,String studentID, String firstName, String lastname, String CoursesRegistered, String status,
 			String statusDate) {
 		// calling the record class constructor with the given details
 		super(studentID, firstName, lastname);
+		this.setManagerID( managerID);
 		this.setCoursesRegistered(CoursesRegistered);
 		this.setStatus(status);
 		this.setStatusDate(statusDate);

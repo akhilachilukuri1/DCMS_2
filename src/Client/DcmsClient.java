@@ -121,11 +121,10 @@ public class DcmsClient
 					System.out.println("Enter the number of courses registered by the student");
 					int coursesCount = Integer.parseInt(br.readLine());
 					System.out.println("Enter the "+coursesCount+" courses(one per line) registered by the student");
-					List<String> courses = new ArrayList<>();
-					
+					String courses = null ;					
 					for(int n=0;n<coursesCount;n++){
 						String course = br.readLine();
-						courses.add(course);//getting all the courses enrolled ny the student
+						courses = courses + "/"+ course;//getting all the courses enrolled ny the student
 					}
 					
 					System.out.println("Enter the status of student (Active/Inactive)");
@@ -205,15 +204,12 @@ public class DcmsClient
 					if(fieldName.equals("CoursesRegistered")){
 						System.out.println("Enter the number of courses registered by the student");
 						coursesCount = Integer.parseInt(br.readLine());
-						System.out.println("Enter the "+coursesCount+" courses(one per line) registered by the student");
-						courses = new ArrayList<>();
-						
+						String NewCourses = null ;					
 						for(int n=0;n<coursesCount;n++){
-							String course = br.readLine();
-							courses.add(course);
-							newCourses=newCourses+","+course;
+							String temp = br.readLine();
+							NewCourses = NewCourses + "/"+ temp;//getting all the courses enrolled ny the student
 						}
-						serverloc.editRecordForCourses(managerID,recordID, fieldName, newCourses);
+						serverloc.editRecordForCourses(managerID,recordID, fieldName, NewCourses);
 					}
 					else {
 						//implementation for editing field other than CoursesRegistered

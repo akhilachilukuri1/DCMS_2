@@ -11,16 +11,27 @@ public class Teacher extends Record implements Serializable {
 	String location;
 	String TeacherID;
 
+	
+	public String getManagerID() {
+		return ManagerID;
+	}
+
+
+	public void setManagerID(String managerID) {
+		ManagerID = managerID;
+	}
+	private String ManagerID;
 	public Teacher(){
 		
 	}
 //intiating the teacher record with the teacherID and firstname and lastname
-	public Teacher(String teacherID, String firstName, String lastname,String address, String phone,
+	public Teacher(String managerID,String teacherID, String firstName, String lastname,String address, String phone,
             String Specialization, String location) {
 		
 		//calling the record class constructor with given details
 		
 		super(teacherID, firstName, lastname);
+		this.setManagerID( managerID);
 		this.setAddress(address);
         this.setPhone(phone);
         this.setSpecilization(Specialization);
