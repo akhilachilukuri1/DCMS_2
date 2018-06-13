@@ -26,7 +26,7 @@ public class DcmsClient
         dcmsImplLVL = DcmsHelper.narrow(ncRef.resolve_str("LVL"));
         dcmsImplDDO = DcmsHelper.narrow(ncRef.resolve_str("DDO"));
 
-        System.out.println("Obtained a handle on server object: " + dcmsImplMTL);
+        //System.out.println("Obtained a handle on server object: " + dcmsImplMTL);
         System.out.println(dcmsImplMTL.sayHello()+" from MTL");
         System.out.println(dcmsImplMTL.sayHello()+" from LVL");
         System.out.println(dcmsImplMTL.sayHello()+" from DDO");

@@ -16,3 +16,11 @@ Jun 12, 2018 7:38:18 PM Server.ServerUDP <init>
 INFO: LVL UDP Server Started
 Jun 12, 2018 7:41:38 PM Server.ServerUDP <init>
 INFO: LVL UDP Server Started
+Jun 12, 2018 7:55:19 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 12, 2018 7:55:19 PM Server.ServerUDP <init>
+SEVERE: Address already in use: Cannot bind
+Jun 12, 2018 7:58:56 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 12, 2018 7:58:57 PM Server.ServerUDP <init>
+SEVERE: Address already in use: Cannot bind

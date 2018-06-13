@@ -2,6 +2,11 @@ package Server;
 
 import DcmsApp.*;
 import org.omg.CosNaming.*;
+
+import java.util.HashMap;
+
+import java.io.File;
+import Conf.Constants;
 import org.omg.CORBA.*;
 import Conf.ServerCenterLocation.*;
 import org.omg.PortableServer.*;
@@ -10,54 +15,29 @@ import org.omg.PortableServer.POA;
 import Conf.ServerCenterLocation;
 
 public class DcmsServer {
+	static DcmsServerImpl serverMTL,serverLVL,serverDDO;
+	static HashMap<String,DcmsServerImpl> serverRepo;
+	
+	private static void init(){
 
+		boolean isMtlDir = new File(Constants.LOG_DIR+ServerCenterLocation.MTL.toString()).mkdir();
+		boolean isLvlDir = new File(Constants.LOG_DIR+ServerCenterLocation.LVL.toString()).mkdir();
+		boolean isDdoDir = new File(Constants.LOG_DIR+ServerCenterLocation.DDO.toString()).mkdir();
+		boolean globalDir = new File(Constants.LOG_DIR+"ServerGlobal").mkdir();
+
+		serverMTL = new DcmsServerImpl(ServerCenterLocation.MTL);
+		serverLVL = new DcmsServerImpl(ServerCenterLocation.LVL);
+		serverDDO = new DcmsServerImpl(ServerCenterLocation.DDO);
+		
+		serverRepo = new HashMap<>();
+		serverRepo.put("MTL",serverMTL);
+		serverRepo.put("LVL",serverLVL);
+		serverRepo.put("DDO",serverDDO);
+	}
 	public static void main(String args[]) {
 		try {
-//			// create servant and register it with the ORB
-//			DcmsServerImpl mtlServer = new DcmsServerImpl(ServerCenterLocation.MTL);
-//			//DcmsServerImpl lvlServer = new DcmsServerImpl(ServerCenterLocation.LVL);
-//			//DcmsServerImpl ddoServer = new DcmsServerImpl(ServerCenterLocation.DDO);
-//
-//			
-//			// create and initialize the ORB
-//			ORB orb = ORB.init(args, null);
-//			// get reference to rootpoa & activate the POAManager
-//			POA rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
-//			rootPoa.the_POAManager().activate();
-//
-//			mtlServer.setORB(orb);
-//			
-//			org.omg.CORBA.Object mtlCorbaRef = rootPoa.servant_to_reference(mtlServer);
-//	        //org.omg.CORBA.Object lvlCorbaRef = rootPoa.servant_to_reference(lvlServer);
-//	        //org.omg.CORBA.Object ddoCorbaRef = rootPoa.servant_to_reference(ddoServer);
-//	        Dcms mtlRef = DcmsHelper.narrow(mtlCorbaRef);
-//	        //Dcms lvlRef = DcmsHelper.narrow(lvlCorbaRef);
-//	        //Dcms ddoRef = DcmsHelper.narrow(ddoCorbaRef);
-//	        
-////			mtlServer.setORB(orb);
-////			lvlServer.setORB(orb);
-////			ddoServer.setORB(orb);
-//
-//			// get the root naming context
-//			// NameService invokes the name service
-//			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-//			// Use NamingContextExt which is part of the Interoperable
-//			// Naming Service (INS) specification.
-//			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
-//
-//			// bind the Object Reference in Naming
-//			String name = "Hello";
-//			NameComponent mtlPath[] = ncRef.to_name("MTLServer");
-//	        //NameComponent lvlPath[] = ncRef.to_name("LVLServer");
-//	        //NameComponent ddoPath[] = ncRef.to_name("DDOServer");
-//	        ncRef.rebind(mtlPath, mtlRef );
-//	        //ncRef.rebind(lvlPath, lvlRef );
-//	        //ncRef.rebind(ddoPath, ddoRef );
-//
-//			System.out.println("DCMS Server ready and waiting ...");
-//
-//			// wait for invocations from clients
-//			orb.run();
+			
+			 init();
 			 // create and initialize the ORB
 		      ORB orb = ORB.init(args, null);
 
