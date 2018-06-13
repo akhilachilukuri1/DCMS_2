@@ -15,9 +15,17 @@ public class Teacher extends Record implements Serializable {
 		
 	}
 //intiating the teacher record with the teacherID and firstname and lastname
-	public Teacher(String teacherID, String firstName, String lastname) {
-		super(teacherID, firstName, lastname);//calling the record class constructor with given details
-	}
+	public Teacher(String teacherID, String firstName, String lastname,String address, String phone,
+            String Specialization, String location) {
+		
+		//calling the record class constructor with given details
+		
+		super(teacherID, firstName, lastname);
+		this.setAddress(address);
+        this.setPhone(phone);
+        this.setSpecilization(Specialization);
+        this.setLocation(location);
+   }
 //getting the first name
 	public String getFirstName() {
 		return firstName;
@@ -77,9 +85,14 @@ public class Teacher extends Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Teacher [firstName=" + firstName + ", lastName=" + lastName + ", Address=" + Address + ", phone="
-				+ phone + ", specilization=" + specilization + ", location=" + location + ", TeacherID=" + TeacherID
-				+ "]";
-	}
+        return this.getRecordID() + " " + this.getFirstName() + " " + this.getLastname() + " " + this.getAddress() + " "
+                + this.getPhone() + " " + this.getSpecilization() + " " + this.getLocation();
+    }
+
+	@Override
+	public String serialize(){
+    	return "Teacher" + getRecordID() + "," + getFirstName()+"," + getLastname()+ ","
+    			+ getAddress()+ "," + getPhone()+ "," + getSpecilization() + "," +getLocation() ;
+    }
 
 }
