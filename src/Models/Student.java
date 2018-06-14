@@ -13,18 +13,9 @@ public class Student extends Record implements Serializable {
 	String status;
 	String statusDate;
 	String studentID;
+	String ManagerID;
 	
-	public String getManagerID() {
-		return ManagerID;
-	}
-
-
-	public void setManagerID(String managerID) {
-		ManagerID = managerID;
-	}
-	private String ManagerID;
-
-	// initiating the CoursesRegistered arraylist for every instance of the student
+	
 	// created
 	public Student(String managerID,String studentID, String firstName, String lastname, String CoursesRegistered, String status,
 			String statusDate) {
@@ -95,14 +86,24 @@ public class Student extends Record implements Serializable {
 	public void setStudentID(String studentID) {
 		this.studentID = studentID;
 	}
+	
+	public String getManagerID() {
+		return ManagerID;
+	}
+
+
+	public void setManagerID(String managerID) {
+		ManagerID = managerID;
+	}
+
 
 	public String serialize() {
-		return "Student" + getRecordID() + "," + getFirstName() + "," + getLastname() + "," + getCoursesRegistered()
+		return "Student" +getManagerID() + getRecordID() + "," + getFirstName() + "," + getLastname() + "," + getCoursesRegistered()
 				+ "," + isStatus() + "," + getStatusDate();
 	}
 
 	public String toString() {
-		return this.getRecordID() + " " + this.getFirstName() + " " + this.getLastname() + " "
+		return this.getManagerID()+" "+ this.getRecordID() + " " + this.getFirstName() + " " + this.getLastname() + " "
 				+ this.getCoursesRegistered() + " " + this.isStatus() + " " + this.getStatusDate();
 	}
 

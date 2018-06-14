@@ -69,7 +69,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	@Override
-	public String createTRecord(String teacher) {
+	public synchronized String createTRecord(String teacher) {
 
 		System.out.println("Teacher: "+teacher);
 		String temp[] = teacher.split(",");
@@ -99,7 +99,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	@Override
-	public String createSRecord(String student) {
+	public synchronized String createSRecord(String student) {
 
 		
 		String temp[] = student.split(",");
@@ -129,7 +129,7 @@ class DcmsServerImpl extends DcmsPOA {
 	
 
 	// adding the records into HashMap
-		private static String addRecordToHashMap(String key, Teacher teacher, Student student) {
+		private synchronized static String addRecordToHashMap(String key, Teacher teacher, Student student) {
 
 			String message = "Error";
 			if (teacher != null) {
@@ -287,7 +287,7 @@ class DcmsServerImpl extends DcmsPOA {
 	
 	
 	}
-	public String transferSRRecord(String ManagerID,String recordID,String remoteCenterServerName)
+	public synchronized String transferSRRecord(String ManagerID,String recordID,String remoteCenterServerName)
 	{
 		logManager.logger.log(Level.INFO,ManagerID+" has initiated the record transfer for the recordID: "+recordID+" operation from "+this.IPaddress+" to "+remoteCenterServerName);
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
@@ -335,7 +335,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 	
 	// Editing students records
-	private String editSRRecord(String maangerID,String recordID, String fieldname, String newvalue) {
+	private synchronized String editSRRecord(String maangerID,String recordID, String fieldname, String newvalue) {
 
 		// System.out.println(recordsMap);
 
@@ -360,7 +360,7 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	// Editing Teacher records
-	private String editTRRecord(String managerID,String recordID, String fieldname, String newvalue) {
+	private  synchronized String editTRRecord(String managerID,String recordID, String fieldname, String newvalue) {
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();
@@ -394,7 +394,7 @@ class DcmsServerImpl extends DcmsPOA {
 		
 
 	@Override
-	public String editRecordForCourses(String managerID, String recordID, String fieldName, String NewCourses) {
+	public synchronized String editRecordForCourses(String managerID, String recordID, String fieldName, String NewCourses) {
 		
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 
@@ -407,6 +407,6 @@ class DcmsServerImpl extends DcmsPOA {
 		}
 		
 		
-		return null;
+		return "Updated record with new courses  :: " + NewCourses;
 	}
 }
