@@ -240,7 +240,7 @@ class DcmsServerImpl extends DcmsPOA {
 
 		return "Operation not performed!";
 	}
-	public String transferTRRecord(String ManagerID,String recordID,String remoteCenterServerName)
+	public synchronized String transferTRRecord(String ManagerID,String recordID,String remoteCenterServerName)
 	{
 		logManager.logger.log(Level.INFO,ManagerID+" has initiated the record transfer for the recordID: "+recordID+" operation from "+this.IPaddress+" to "+remoteCenterServerName);
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
@@ -252,12 +252,14 @@ class DcmsServerImpl extends DcmsPOA {
 			if (record.isPresent()) {
 				
 					Teacher teachobj=(Teacher) record.get();
+					System.out.println("Techer transfer$$"+teachobj);
 					if(remoteCenterServerName.equalsIgnoreCase("MTL"))
 					{
 						String key=val.getKey();
 						mylist.remove(teachobj);
 						recordsMap.put(key, mylist);
 						DcmsServer.mtlhref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+						logManager.logger.log(Level.INFO, ManagerID+"has tranferred the teacher Record with "+recordID+"to MTL");
 						return "record with ID "+recordID+" transferred to MTL ";
 					}else
 						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
@@ -266,6 +268,7 @@ class DcmsServerImpl extends DcmsPOA {
 							mylist.remove(teachobj);
 							recordsMap.put(key, mylist);
 							DcmsServer.lvlhref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+							logManager.logger.log(Level.INFO, ManagerID+"has tranferred the teacher Record with "+recordID+"to LVL");
 							return "record with ID "+recordID+" transferred to LVL ";
 						}
 						else
@@ -275,6 +278,7 @@ class DcmsServerImpl extends DcmsPOA {
 								mylist.remove(teachobj);
 								recordsMap.put(key, mylist);
 								DcmsServer.ddohref.createTRecord(ManagerID+","+teachobj.getFirstName()+","+teachobj.getLastName()+","+teachobj.getAddress()+","+teachobj.getPhone()+","+teachobj.getSpecilization()+","+teachobj.getLocation());
+								logManager.logger.log(Level.INFO, ManagerID+"has tranferred the teacher Record with "+recordID+"to DDO");
 								return "record with ID "+recordID+" transferred to DDO ";
 							}
 					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
@@ -299,12 +303,14 @@ class DcmsServerImpl extends DcmsPOA {
 			if (record.isPresent()) {
 				
 					Student studentobj=(Student) record.get();
+					System.out.println("Student transfer$$"+studentobj);
 					if(remoteCenterServerName.equalsIgnoreCase("MTL"))
 					{
 						String key=val.getKey();
 						mylist.remove(studentobj);
 						recordsMap.put(key, mylist);
-						DcmsServer.mtlhref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+						DcmsServer.mtlhref.createSRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+						logManager.logger.log(Level.INFO, ManagerID+"has tranferred the student Record with "+recordID+"to MTL");
 						return "record with ID "+recordID+" transferred to MTL ";
 					}else
 						if(remoteCenterServerName.equalsIgnoreCase("LVL"))
@@ -312,7 +318,8 @@ class DcmsServerImpl extends DcmsPOA {
 							String key=val.getKey();
 							mylist.remove(studentobj);
 							recordsMap.put(key, mylist);
-							DcmsServer.lvlhref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+							DcmsServer.lvlhref.createSRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+							logManager.logger.log(Level.INFO, ManagerID+"has tranferred the student Record with "+recordID+"to LVL");
 							return "record with ID "+recordID+" transferred to LVL ";
 						}
 						else
@@ -321,7 +328,8 @@ class DcmsServerImpl extends DcmsPOA {
 								String key=val.getKey();
 								mylist.remove(studentobj);
 								recordsMap.put(key, mylist);
-								DcmsServer.ddohref.createTRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+								DcmsServer.ddohref.createSRecord(ManagerID+","+studentobj.getFirstName()+","+studentobj.getLastName()+","+studentobj.getCoursesRegistered()+","+studentobj.isStatus()+","+studentobj.getStatusDate());
+								logManager.logger.log(Level.INFO, ManagerID+"has tranferred the student Record with "+recordID+"to DDO");
 								return "record with ID "+recordID+" transferred to DDO ";
 							}
 					logManager.logger.log(Level.INFO, "Updated the records\t" + location);
