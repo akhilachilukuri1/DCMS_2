@@ -28,6 +28,7 @@ public class DcmsClient
     {
 	  ClientImp serverloc=null;
 		while (true) {
+			try {
 			//Dcms serverloc=null;
 			//ClientImp client = null;
 			Pattern validate=Pattern.compile("([0-9]*)");
@@ -72,7 +73,9 @@ public class DcmsClient
 				System.out.println("4) Edit the record");
 				System.out.println("5) Transfer the record");
 				System.out.println("6) Logout manager");
+				try {
 				Integer choice = Integer.parseInt(br.readLine());//getting the manager choice
+				
 				switch (choice) {
 				case 1:
 					//Create the Teacher record
@@ -280,11 +283,28 @@ public class DcmsClient
 					System.out.println("Invalid choice! Please try again");
 					break;
 				}
+				}
+				catch(NumberFormatException e)
+				{
+					System.out.println("Invalid Input!!...Please enter values from 1-6 only...Try again!!");	
+				continue;
+				}
+				catch(Exception e)
+				{
+					System.out.println("Invalid Input!!.....Try again!!");	
+				continue;
+				}
 
 			}
 			System.out.println("Manager with " + managerID + "is logged Out");
 		}
-        
+    
+		catch(StringIndexOutOfBoundsException ez)
+		{
+			System.out.println("Invalid ManagerID!!.....Try again!!");	
+		
+		}
+		}
 	} 
     }
 
