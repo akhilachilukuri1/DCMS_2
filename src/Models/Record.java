@@ -13,7 +13,7 @@ public abstract class Record implements Serializable{
 	//instantiating the record object with the given details
 		public Record(String recordID, String firstName, String lastname) {
 			this.setFirstName(firstName);
-			this.setLastname(lastname);
+			this.setLastName(lastname);
 			this.setRecordID(recordID);
 		}
 
@@ -41,11 +41,11 @@ public abstract class Record implements Serializable{
 		this.firstName = firstName;
 	}
 //getting the last name of the record
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
 //setting the last name of the record
-	public void setLastname(String lastname) {
+	public void setLastName(String lastname) {
 		this.lastname = lastname;
 	}
 
