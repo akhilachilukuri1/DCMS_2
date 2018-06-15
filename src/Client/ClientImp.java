@@ -144,7 +144,7 @@ public class ClientImp {
 		String message = "";
 		logManager.logger.log(Level.INFO, managerID+"has Initiated the record edit request for "+recordID);
 		
-			serverLoc.editRecordForCourses(managerID,recordID, fieldname, newCourses);
+		message=serverLoc.editRecordForCourses(managerID,recordID, fieldname, newCourses);
 		
 		logManager.logger.log(Level.INFO, message);
 		return message;

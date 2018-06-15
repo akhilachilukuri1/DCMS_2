@@ -211,6 +211,7 @@ public class DcmsClient
 						System.out.println("Enter the number of courses registered by the student");
 						coursesCount = Integer.parseInt(br.readLine());
 						String NewCourses = null ;					
+						System.out.println("Enter the new courses registered by the student");
 						for(int n=0;n<coursesCount;n++){
 							String temp = br.readLine();
 							if(n==0)

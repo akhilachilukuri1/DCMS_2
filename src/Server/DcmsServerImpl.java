@@ -25,8 +25,8 @@ class DcmsServerImpl extends DcmsPOA {
 	ServerUDP serverUDP;
 	String IPaddress;
 	public static HashMap<String, List<Record>> recordsMap;
-	static int studentCount = 0;
-	static int teacherCount = 0;
+	 int studentCount = 0;
+	 int teacherCount = 0;
 	String recordsCount;
 	String location;
 
@@ -110,7 +110,7 @@ class DcmsServerImpl extends DcmsPOA {
 		String CoursesRegistered= temp[3];
 		String status= temp[4];
 		String statusDate= temp[5];
-		String studentID = "SR" + (studentCount + 1);
+		String studentID = "SR" + (++studentCount);
 		
 		Student studentObj = new Student(managerID, studentID,  firstName,  lastName,  CoursesRegistered,  status, statusDate);
 	
@@ -120,7 +120,7 @@ class DcmsServerImpl extends DcmsPOA {
 
 		//System.out.println(recordsMap);
 
-		System.out.println(" Student is added " + studentObj + " with this key " + key+"by Manager "+managerID  );
+		System.out.println(" Student is added " + studentObj + " with this key " + key+" by Manager "+managerID  );
 		logManager.logger.log(Level.INFO, "Student record created " + studentID+" by manager : "+ managerID);
 
 		return studentID;
@@ -362,6 +362,13 @@ class DcmsServerImpl extends DcmsPOA {
 					logManager.logger.log(Level.INFO, maangerID+"Updated the records\t" + location);
 					return "Updated record with status date :: " + newvalue;
 				}
+				else {
+					System.out.println("Record with " + recordID + " not found" );
+					logManager.logger.log(Level.INFO, "Record with " + recordID + "not found!" + location);
+					return "Record with " + recordID + " not found";
+
+				}
+					
 			}
 		}
 		return "Record with " + recordID + "not found!";
@@ -393,6 +400,11 @@ class DcmsServerImpl extends DcmsPOA {
 					logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
 					return "Updated record with location :: " + newvalue;
 				}
+				else {
+					System.out.println("Record with " + recordID + " not found" );
+					logManager.logger.log(Level.INFO, "Record with " + recordID + "not found!" + location);
+					return "Record with " + recordID + " not found";
+				}
 			}
 		}
 		return "Record with " + recordID + " not found";
@@ -408,9 +420,18 @@ class DcmsServerImpl extends DcmsPOA {
 
 			List<Record> mylist = value.getValue();
 			Optional<Record> record = mylist.stream().filter(x -> x.getRecordID().equals(recordID)).findFirst();
+			
 			if (record.isPresent() && fieldName.equals("CoursesRegistered")) {
 				((Student) record.get()).setCoursesRegistered(NewCourses);
 				logManager.logger.log(Level.INFO, managerID+"Updated the records\t" + location);
+				System.out.println(record.get().getRecordID() +" Student record edited with " + NewCourses+" by Manager "+managerID  );
+				return "Updated record with new courses  :: " + NewCourses;
+			}
+			else
+			{
+				//System.out.println("Record with " + recordID + " not found" );
+				logManager.logger.log(Level.INFO, "Record with " + recordID + "not found!" + location);
+				return "Record with " + recordID + " not found";
 			}
 		}
 		
