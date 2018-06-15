@@ -124,6 +124,9 @@ public class DcmsClient
 					String courses = null ;					
 					for(int n=0;n<coursesCount;n++){
 						String course = br.readLine();
+						if(n==0)
+							courses = course;
+						else
 						courses = courses + "/"+ course;//getting all the courses enrolled ny the student
 					}
 					
@@ -207,6 +210,9 @@ public class DcmsClient
 						String NewCourses = null ;					
 						for(int n=0;n<coursesCount;n++){
 							String temp = br.readLine();
+							if(n==0)
+							NewCourses = temp;
+							else
 							NewCourses = NewCourses + "/"+ temp;//getting all the courses enrolled ny the student
 						}
 						serverloc.editRecordForCourses(managerID,recordID, fieldName, NewCourses);
