@@ -6,6 +6,8 @@ import org.omg.CosNaming.*;
 import java.util.HashMap;
 
 import java.io.File;
+import java.io.IOException;
+
 import Conf.Constants;
 import org.omg.CORBA.*;
 import Conf.ServerCenterLocation.*;
@@ -17,6 +19,19 @@ import Conf.ServerCenterLocation;
 public class DcmsServer {
 	static HashMap<String, DcmsServerImpl> serverRepo;
 	static Dcms mtlhref, lvlhref, ddohref;
+
+	static {
+		/*
+		 * Start CORBA services on localhost
+		 */
+		System.out.println("Starting CORBA Service!");
+		try {
+			Runtime.getRuntime().exec("orbd -ORBInitialPort 1050 -ORBInitialHost localhost");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
 
 	private static void init() {
 

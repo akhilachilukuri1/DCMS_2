@@ -426,10 +426,4 @@ class DcmsServerImpl extends DcmsPOA {
 
 		return "Updated record with new courses  :: " + NewCourses;
 	}
-
-	@Override
-	public String sayHello() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
