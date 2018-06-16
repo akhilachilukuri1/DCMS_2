@@ -120,3 +120,41 @@ Jun 15, 2018 11:51:28 AM Server.DcmsServerImpl createSRecord
 INFO: Student record created SR1 by manager : MTL0005
 Jun 15, 2018 11:52:29 AM Server.DcmsServerImpl createSRecord
 INFO: Student record created SR1 by manager : MTL0005
+Jun 16, 2018 5:17:45 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 16, 2018 5:20:56 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR1 by Manager : MTL1234
+Jun 16, 2018 5:21:22 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR1 by manager : MTL1234
+Jun 16, 2018 5:39:10 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 16, 2018 5:41:49 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 16, 2018 5:42:37 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR1 by Manager : MTL1234
+Jun 16, 2018 5:43:15 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR1 by manager : MTL1234
+Jun 16, 2018 5:46:25 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from MTL
+Jun 16, 2018 5:47:39 PM Server.DcmsServerImpl transferTRRecord
+INFO: MTL1234 has initiated the record transfer for the recordID: TR1 operation from localhost to DDO
+Jun 16, 2018 5:47:39 PM Server.DcmsServerImpl transferTRRecord
+INFO: MTL1234 has tranferred the teacher Record with recordID TR1 from MTLto DDO with recordID TR2 in DDO
+Jun 16, 2018 5:49:12 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from MTL
+Jun 16, 2018 5:52:03 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from MTL
+Jun 16, 2018 5:53:25 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR2 by manager : LVL1234
+Jun 16, 2018 5:53:35 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from MTL
+Jun 16, 2018 5:57:40 PM Server.DcmsServerImpl transferSRRecord
+INFO: MTL1234 has initiated the record transfer for the recordID: SR2 operation from localhost to MTL
+Jun 16, 2018 5:59:46 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from MTL
+Jun 16, 2018 6:01:21 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 16, 2018 6:03:00 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR1 by Manager : MTL1234
+Jun 16, 2018 6:03:15 PM Server.DcmsServerImpl editTRRecord
+INFO: MTL1234Updated the records	MTL

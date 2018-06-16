@@ -101,7 +101,7 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO,
 				managerID + "has Initiated the record edit request for " + recordID);
 		message = serverLoc.editRecord(managerID, recordID, fieldname, newvalue);
-		System.out.println(message);
+		//System.out.println(message);
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}

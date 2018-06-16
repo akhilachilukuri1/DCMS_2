@@ -218,6 +218,7 @@ class DcmsServerImpl extends DcmsPOA {
 				ManagerID + " has initiated the record transfer for the recordID: "
 						+ recordID + " operation from " + this.IPaddress + " to "
 						+ remoteCenterServerName);
+		String TeacherID=null;
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();
@@ -225,54 +226,55 @@ class DcmsServerImpl extends DcmsPOA {
 					.filter(x -> x.getRecordID().equals(recordID)).findFirst();
 
 			if (record.isPresent()) {
-
+				if(!this.location.equalsIgnoreCase(remoteCenterServerName))
+				{
 				Teacher teachobj = (Teacher) record.get();
 				System.out.println("Techer transfer$$" + teachobj);
 				if (remoteCenterServerName.equalsIgnoreCase("MTL")) {
 					String key = val.getKey();
 					mylist.remove(teachobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.mtlhref.createTRecord(ManagerID + ","
+					TeacherID=DcmsServer.mtlhref.createTRecord(ManagerID + ","
 							+ teachobj.getFirstName() + "," + teachobj.getLastName()
 							+ "," + teachobj.getAddress() + "," + teachobj.getPhone()
 							+ "," + teachobj.getSpecilization() + ","
 							+ teachobj.getLocation());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the teacher Record with "
-									+ recordID + "to MTL");
-					return "record with ID " + recordID + " transferred to MTL ";
+					logManager.logger.log(Level.INFO, ManagerID+" has tranferred the teacher Record with recordID "+recordID+" from "+teachobj.getLocation()+" to MTL with recordID "+TeacherID+"in MTL");
+					return "record with ID "+recordID+" in "+teachobj.getLocation()+" is transferred to MTL with recordID "+TeacherID+" in MTL";
 				} else if (remoteCenterServerName.equalsIgnoreCase("LVL")) {
 					String key = val.getKey();
 					mylist.remove(teachobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.lvlhref.createTRecord(ManagerID + ","
+					TeacherID=DcmsServer.lvlhref.createTRecord(ManagerID + ","
 							+ teachobj.getFirstName() + "," + teachobj.getLastName()
 							+ "," + teachobj.getAddress() + "," + teachobj.getPhone()
 							+ "," + teachobj.getSpecilization() + ","
 							+ teachobj.getLocation());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the teacher Record with "
-									+ recordID + "to LVL");
-					return "record with ID " + recordID + " transferred to LVL ";
+					logManager.logger.log(Level.INFO, ManagerID+" has tranferred the teacher Record with recordID "+recordID+" from "+teachobj.getLocation()+" to LVL with recordID "+TeacherID+" in LVL");
+					return "record with ID "+recordID+" in "+teachobj.getLocation()+" is transferred to LVL with recordID "+TeacherID+" in LVL";
 				} else if (remoteCenterServerName.equalsIgnoreCase("DDO")) {
 					String key = val.getKey();
 					mylist.remove(teachobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.ddohref.createTRecord(ManagerID + ","
+					TeacherID=DcmsServer.ddohref.createTRecord(ManagerID + ","
 							+ teachobj.getFirstName() + "," + teachobj.getLastName()
 							+ "," + teachobj.getAddress() + "," + teachobj.getPhone()
 							+ "," + teachobj.getSpecilization() + ","
 							+ teachobj.getLocation());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the teacher Record with "
-									+ recordID + "to DDO");
-					return "record with ID " + recordID + " transferred to DDO ";
+					logManager.logger.log(Level.INFO, ManagerID+" has tranferred the teacher Record with recordID "+recordID+" from "+teachobj.getLocation()+"to DDO with recordID "+TeacherID+" in DDO");
+					return "record with ID "+recordID+" in "+teachobj.getLocation()+" is transferred to DDO with recordID "+TeacherID+" in DDO";
 				}
 				logManager.logger.log(Level.INFO,
 						"Updated the records\t" + location);
 				return "record with ID " + recordID
 						+ " is not transferred successfully ";
 
+			}
+			
+			else
+			{
+				return "Transfer aborted to same server..Try different server!!";
+			}
 			}
 		}
 		return "Record with " + recordID + " not found";
@@ -285,6 +287,7 @@ class DcmsServerImpl extends DcmsPOA {
 				ManagerID + " has initiated the record transfer for the recordID: "
 						+ recordID + " operation from " + this.IPaddress + " to "
 						+ remoteCenterServerName);
+		String StudentID=null;
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();
@@ -293,57 +296,56 @@ class DcmsServerImpl extends DcmsPOA {
 
 			// System.out.println(record);
 			if (record.isPresent()) {
-
+				if(!this.location.equalsIgnoreCase(remoteCenterServerName))
+				{
 				Student studentobj = (Student) record.get();
 				System.out.println("Student transfer$$" + studentobj);
 				if (remoteCenterServerName.equalsIgnoreCase("MTL")) {
 					String key = val.getKey();
 					mylist.remove(studentobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.mtlhref.createSRecord(
+					StudentID=DcmsServer.mtlhref.createSRecord(
 							ManagerID + "," + studentobj.getFirstName() + ","
 									+ studentobj.getLastName() + ","
 									+ studentobj.getCoursesRegistered() + ","
 									+ studentobj.isStatus() + ","
 									+ studentobj.getStatusDate());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the student Record with "
-									+ recordID + "to MTL");
-					return "record with ID " + recordID + " transferred to MTL ";
+					logManager.logger.log(Level.INFO, ManagerID+" has tranferred the student Record with recordID "+recordID+" from "+this.location+" to MTL with recordID "+StudentID+" in MTL");
+					return "record with ID "+recordID+" in "+this.location+" is transferred to MTL with recordID "+StudentID+" in MTL";
 				} else if (remoteCenterServerName.equalsIgnoreCase("LVL")) {
 					String key = val.getKey();
 					mylist.remove(studentobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.lvlhref.createSRecord(
+					StudentID=DcmsServer.lvlhref.createSRecord(
 							ManagerID + "," + studentobj.getFirstName() + ","
 									+ studentobj.getLastName() + ","
 									+ studentobj.getCoursesRegistered() + ","
 									+ studentobj.isStatus() + ","
 									+ studentobj.getStatusDate());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the student Record with "
-									+ recordID + "to LVL");
-					return "record with ID " + recordID + " transferred to LVL ";
+					logManager.logger.log(Level.INFO, ManagerID+"has tranferred the student Record with recordID "+recordID+" from "+this.location+" to LVL with recordID "+StudentID+" in LVL");
+					return "record with ID "+recordID+" in "+this.location+" is transferred to LVL with recordID "+StudentID+" in LVL";
 				} else if (remoteCenterServerName.equalsIgnoreCase("DDO")) {
 					String key = val.getKey();
 					mylist.remove(studentobj);
 					recordsMap.put(key, mylist);
-					DcmsServer.ddohref.createSRecord(
+					StudentID=DcmsServer.ddohref.createSRecord(
 							ManagerID + "," + studentobj.getFirstName() + ","
 									+ studentobj.getLastName() + ","
 									+ studentobj.getCoursesRegistered() + ","
 									+ studentobj.isStatus() + ","
 									+ studentobj.getStatusDate());
-					logManager.logger.log(Level.INFO,
-							ManagerID + "has tranferred the student Record with "
-									+ recordID + "to DDO");
-					return "record with ID " + recordID + " transferred to DDO ";
+					logManager.logger.log(Level.INFO, ManagerID+"has tranferred the student Record with recordID "+recordID+" from "+this.location+" to DDO with recordID "+StudentID+" in DDO");
+					return "record with ID "+recordID+" in "+this.location+" is transferred to DDO with recordID "+StudentID+" in DDO";
 				}
 				logManager.logger.log(Level.INFO,
 						"Updated the records\t" + location);
 				return "record with ID " + recordID
 						+ " is not transferred successfully ";
 
+			}else
+				{
+					return "Transfer aborted to same server..Try different server!!";
+				}
 			}
 		}
 		return "Record with " + recordID + " not found";

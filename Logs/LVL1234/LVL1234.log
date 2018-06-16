@@ -1,0 +1,28 @@
+Jun 16, 2018 5:44:19 PM Client.ClientImp createTRecord
+INFO: Initiating T record object creation request
+Jun 16, 2018 5:44:19 PM Client.ClientImp createTRecord
+INFO: Teacher record is created and assigned with TR1
+Jun 16, 2018 5:44:49 PM Client.ClientImp createSRecord
+INFO: Initiating S record object creation request
+Jun 16, 2018 5:44:49 PM Client.ClientImp createSRecord
+INFO: student record is created and assigned with SR1
+Jun 16, 2018 5:53:25 PM Client.ClientImp transferRecord
+INFO: Initiating the record transfer request
+Jun 16, 2018 5:53:25 PM Client.ClientImp transferRecord
+INFO: record with ID SR1 in LVL is transferred to MTL with recordID SR2 in MTL
+Jun 16, 2018 5:53:35 PM Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 16, 2018 5:53:35 PM Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 16, 2018 5:53:35 PM Client.ClientImp getRecordCounts
+INFO: LVL,1 , MTL,2 , DDO,3
+Jun 16, 2018 5:58:39 PM Client.ClientImp transferRecord
+INFO: Initiating the record transfer request
+Jun 16, 2018 5:58:39 PM Client.ClientImp transferRecord
+INFO: Transfer aborted to same server..Try different server!!
+Jun 16, 2018 5:59:46 PM Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 16, 2018 5:59:46 PM Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 16, 2018 5:59:46 PM Client.ClientImp getRecordCounts
+INFO: LVL,1 , MTL,2 , DDO,3

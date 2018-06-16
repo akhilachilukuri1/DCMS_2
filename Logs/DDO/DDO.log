@@ -68,3 +68,35 @@ Jun 15, 2018 11:46:37 AM Server.ServerUDP <init>
 INFO: DDO UDP Server Started
 Jun 15, 2018 11:46:37 AM Server.ServerUDP <init>
 SEVERE: Address already in use: Cannot bind
+Jun 16, 2018 5:17:45 PM Server.ServerUDP <init>
+INFO: DDO UDP Server Started
+Jun 16, 2018 5:21:44 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:39:10 PM Server.ServerUDP <init>
+INFO: DDO UDP Server Started
+Jun 16, 2018 5:41:49 PM Server.ServerUDP <init>
+INFO: DDO UDP Server Started
+Jun 16, 2018 5:43:19 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:45:41 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR1 by Manager : DDO1234
+Jun 16, 2018 5:46:14 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR1 by manager : DDO1234
+Jun 16, 2018 5:47:39 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR2 by Manager : MTL1234
+Jun 16, 2018 5:48:49 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:49:31 PM Server.DcmsServerImpl editTRRecord
+INFO: DDO1234Updated the records	DDO
+Jun 16, 2018 5:53:35 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:57:12 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:57:50 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 5:59:10 PM Server.DcmsServerImpl transferTRRecord
+INFO: DDO1234 has initiated the record transfer for the recordID: TR2 operation from localhost to DDO
+Jun 16, 2018 5:59:46 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 6:01:21 PM Server.ServerUDP <init>
+INFO: DDO UDP Server Started
