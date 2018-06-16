@@ -104,3 +104,9 @@ Jun 16, 2018 5:58:39 PM Server.DcmsServerImpl transferTRRecord
 INFO: LVL1234 has initiated the record transfer for the recordID: TR1 operation from localhost to LVL
 Jun 16, 2018 6:01:21 PM Server.ServerUDP <init>
 INFO: LVL UDP Server Started
+Jun 16, 2018 6:51:09 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 16, 2018 7:18:35 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 16, 2018 7:31:37 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started

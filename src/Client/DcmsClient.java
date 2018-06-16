@@ -83,16 +83,19 @@ public class DcmsClient {
 
 							System.out.println("Enter the address of the teacher");
 							String addressT = br.readLine();
-
+							String phoneNumber = null;
+							String phoneT;
+							
+							while(true) {
 							System.out.println(
 									"Enter the Phone number in 123-456-7689 format");
-							String phoneNumber = br.readLine();
-							String phoneT;
+							phoneNumber = br.readLine();
 							Pattern pattern = Pattern
 									.compile("\\d{3}-\\d{3}-\\d{4}");
 							Matcher matcher = pattern.matcher(phoneNumber);
 							if (matcher.matches()) {
 								phoneT = phoneNumber;
+								break;
 							} else {
 								System.out.println(
 										"Invalid phone number ...exiting the program");
@@ -100,31 +103,35 @@ public class DcmsClient {
 										"Validation Failed for "
 												+ "phone number and exiting the program(ManagerID:"
 												+ managerID + ")");
-								break;
+								continue;
 							}
-
+						}
 							System.out.println(
 									"Enter the specilization of the teacher");
 							String specilizationT = br.readLine();
-
-							System.out.println("Enter the Location(MTL/LVL/DDO)");
-							String location = br.readLine();
-
 							String locationT;
+							String location = null;
+							while(true) {
+							System.out.println("Enter the Location(MTL/LVL/DDO)");
+							location = br.readLine();
+
+							
 							logManager.logger.log(Level.INFO, "Validating the status"
 									+ " entered (ManagerID:" + managerID + ")");
 							if (location.equalsIgnoreCase("LVL")
 									|| location.equalsIgnoreCase("MTL")
 									|| location.equalsIgnoreCase("DDO")) {
 								locationT = location;
+								break;
 							} else {
 								System.out.println(
 										"Invalid Location ...exiting the program");
 								logManager.logger.log(Level.INFO,
 										"Validation Failed for location and exiting the program(ManagerID:"
 												+ managerID + ")");
-								break;
+								continue;
 							}
+						}
 							System.out.println(serverloc.createTRecord(
 									managerID + "," + firstNameT + "," + lastNameT
 											+ "," + addressT + "," + phoneT + ","
@@ -159,23 +166,59 @@ public class DcmsClient {
 																		// ny the
 																		// student
 							}
-
-							System.out.println(
-									"Enter the status of student (Active/Inactive)");
-							String status = br.readLine();
+							
+							String status = null;
 							String statusDate = null;
-							if ((status.toUpperCase().equals("ACTIVE"))) {
-								System.out.println(
-										"Enter the date when the student became active(Format :: 29 May 2018)");
-								statusDate = br.readLine();
-							} else if ((status.toUpperCase().equals("INACTIVE"))) {
-								System.out.println(
-										"Enter the date when the student became inactive(Format :: 29 May 2018)");
-								statusDate = br.readLine();
-							} else {
-								System.out.println("Status assigned Invalid!");
-								status = "Invalid Status";
+							
+							
+							while(true) {
+							System.out.println("Enter the status of student (Active/Inactive)");
+							status = br.readLine();
+							if ((status.toUpperCase().equals("ACTIVE"))) 
+								break;
+								 else if ((status.toUpperCase().equals("INACTIVE"))) 
+								break;
+								 else {
+									System.out.println("Status assigned Invalid!");
+									status = "Invalid Status";
+									continue;
+								}
 							}
+							 
+							
+							if ((status.toUpperCase().equals("ACTIVE"))) {
+								while(true)
+								{
+								System.out.println(
+										"Enter the date when the student became active(Format :: 29-02-2018)");
+								Pattern datePattern = Pattern.compile("([0-9]{2})-([0-1][1-9])-([0-9]{4})"); 
+								statusDate = br.readLine();
+								Matcher matcherDate = datePattern.matcher(statusDate);
+								if(matcherDate.matches())
+								break;
+								else
+								{
+									System.out.println("Invalid Date Format - enter in correct format");
+									continue;
+								}
+							}
+							} else if ((status.toUpperCase().equals("INACTIVE"))) {
+								while(true)
+								{
+								System.out.println(
+										"Enter the date when the student became inactive(Format :: 29-02-2018)");
+								Pattern datePattern = Pattern.compile("([0-9]{2})-([0-1][1-9])-([0-9]{4})"); 
+								statusDate = br.readLine();
+								Matcher matcherDate = datePattern.matcher(statusDate);
+								if(matcherDate.matches())
+								break;
+								else
+								{
+									System.out.println("Invalid Date Format - enter in correct format");
+									continue;
+								}
+							}							}
+							
 							System.out.println(serverloc.createSRecord(managerID
 									+ "," + firstNameS + "," + lastNameS + ","
 									+ courses + "," + status + "," + statusDate));
@@ -219,6 +262,8 @@ public class DcmsClient {
 									System.out.print(
 											"Wrong selection of input to edit record");
 							} else if (type.equals("SR")) {
+								
+								
 								System.out.println(
 										"Enter field number to be updated (1.CoursesRegistered 2.status or 3.statusDate)");
 								fieldNum = Integer.parseInt((br.readLine()));
@@ -231,7 +276,7 @@ public class DcmsClient {
 								else
 									System.out.print(
 											"Wrong selection of input to edit record");
-
+								
 							} else {
 								System.out.println(
 										"wrong record ID !..please try again with correct details!!");
@@ -259,25 +304,30 @@ public class DcmsClient {
 								String newValue = null;
 
 								if (fieldName.equals("Phone")) {
+									while(true) {
 									System.out.println(
 											"Enter the new Phone number in 123-456-7689 format");
 									phoneNumber = br.readLine();
-									pattern = Pattern
+									Pattern pattern = Pattern
 											.compile("\\d{3}-\\d{3}-\\d{4}");
-									matcher = pattern.matcher(phoneNumber);
+									Matcher matcher = pattern.matcher(phoneNumber);
 									if (matcher.matches()) {
 										newValue = phoneNumber;
+										break;
 									} else {
 										System.out.println(
 												"Invalid new phone number ...exiting the program");
 										logManager.logger.log(Level.INFO,
 												"Validation Failed for new phone number and exiting the program(ManagerID:"
 														+ managerID + ")");
-										break;
+										continue;
+										}
 									}
 								}
 
 								else if (fieldName.equals("Location")) {
+									while(true)
+									{
 									System.out.println(
 											"Enter the new Location(MTL/LVL/DDO)");
 									location = br.readLine();
@@ -285,14 +335,16 @@ public class DcmsClient {
 											|| location.equalsIgnoreCase("MTL")
 											|| location.equalsIgnoreCase("DDO")) {
 										newValue = location;
+										break;
 									} else {
 										System.out.println(
 												"Invalid new Location ...exiting the program");
 										logManager.logger.log(Level.INFO,
 												"Validation Failed for new location and exiting the program(ManagerID:"
 														+ managerID + ")");
-										break;
+										continue;
 									}
+								}
 
 								} else {
 									newValue = br.readLine();
