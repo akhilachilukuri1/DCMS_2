@@ -1,9 +1,7 @@
 module DcmsApp
 {
   interface Dcms
-  {
-	  	string sayHello();
-	  	
+  {	  	
 	  	string createTRecord(in string teacher);
 	
 		string createSRecord(in string student);

@@ -34,6 +34,7 @@ public class UDPRequestServer extends Thread {
 			String inputPkt = new String(receivePacket.getData()).trim();
 			if (inputPkt.equals("GET_RECORD_COUNT")) {
 				//System.out.println("Got record count pkt");
+				//System.out.println("here :: "+getRecCount());
 				responseData = Integer.toString(getRecCount()).getBytes();
 				serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
 						receivePacket.getPort()));
@@ -49,7 +50,6 @@ public class UDPRequestServer extends Thread {
 		for (Map.Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {
 			List<Record> list = entry.getValue();
 			count+=list.size();
-			System.out.println(entry.getKey()+" "+list.size());
 		}
 		return count;
 	}

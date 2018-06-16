@@ -34,6 +34,7 @@ public class UDPRequestProvider extends Thread {
             socket.receive(new DatagramPacket(data, data.length));
             recordCount = server.location + "," + new String(data);
             //System.out.println(recordCount);
+            //System.out.println(recordCount);
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage());
         } finally {
