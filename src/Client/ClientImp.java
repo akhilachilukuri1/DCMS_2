@@ -14,8 +14,6 @@ import org.omg.CORBA.ORB;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-
-
 import DcmsApp.Dcms;
 import DcmsApp.DcmsHelper;
 import Conf.LogManager;
@@ -23,61 +21,38 @@ import Conf.*;
 /*Implementation of Client class*/
 
 public class ClientImp {
-	//static Dcms dcmsImplMTL,dcmsImplLVL,dcmsImplDDO;
-
 	LogManager logManager = null;
-	Dcms serverLoc=null;
-	//ICenterServer iCenterServer = null;
-	static NamingContextExt ncRef=null;
-	ClientImp(String[] args,ServerCenterLocation location,String ManagerID)
-	{
-	 try{
-	        // create and initialize the ORB
-		ORB orb = ORB.init(args, null);
+	Dcms serverLoc = null;
+	static NamingContextExt ncRef = null;
 
-	        // get the root naming context
-	        org.omg.CORBA.Object objRef = 
-		    orb.resolve_initial_references("NameService");
-	        // Use NamingContextExt instead of NamingContext. This is 
-	        // part of the Interoperable naming Service.  
-	        ncRef = NamingContextExtHelper.narrow(objRef);
-	 
-	        // resolve the Object Reference in Naming
-	    	if (location == ServerCenterLocation.MTL) {
-	    		serverLoc = DcmsHelper.narrow(ncRef.resolve_str("MTL"));
+	ClientImp(String[] args, ServerCenterLocation location, String ManagerID) {
+		try {
+			ORB orb = ORB.init(args, null);
+			org.omg.CORBA.Object objRef = orb
+					.resolve_initial_references("NameService");
+			ncRef = NamingContextExtHelper.narrow(objRef);
+
+			if (location == ServerCenterLocation.MTL) {
+				serverLoc = DcmsHelper.narrow(ncRef.resolve_str("MTL"));
 			} else if (location == ServerCenterLocation.LVL) {
 				serverLoc = DcmsHelper.narrow(ncRef.resolve_str("LVL"));
 			} else if (location == ServerCenterLocation.DDO) {
 				serverLoc = DcmsHelper.narrow(ncRef.resolve_str("DDO"));
 			}
-		boolean mgrID = new File(Constants.LOG_DIR+ManagerID).mkdir();
-		logManager = new LogManager(ManagerID);
+			boolean mgrID = new File(Constants.LOG_DIR + ManagerID).mkdir();
+			logManager = new LogManager(ManagerID);
+		} catch (Exception e) {
+			System.out.println("ERROR : " + e);
+			e.printStackTrace(System.out);
+		}
 	}
-	 catch (Exception e) {
 
-         System.out.println("ERROR : " + e) ;
-
-	  e.printStackTrace(System.out);
-
-	  }
-	}
-	
-//converting the teacher details given by the manager into a POJO instance and sending to the server
 	public String createTRecord(String teacherField) {
-		logManager.logger.log(Level.INFO, "Initiating T record object creation request");
+		logManager.logger.log(Level.INFO,
+				"Initiating T record object creation request");
 		String result = "";
 		String teacherID = "";
-		/*Teacher teacher = new Teacher(teacherID, firstName, lastName);
-		teacher.setFirstName(firstName);
-		teacher.setLastName(lastName);
-		teacher.setAddress(address);
-		teacher.setPhone(phone);
-		teacher.setSpecilization(specilization);
-		teacher.setLocation(location);*/
-
-		
-			teacherID = serverLoc.createTRecord(teacherField);
-		
+		teacherID = serverLoc.createTRecord(teacherField);
 		if (teacherID != null)
 			result = "Teacher record is created and assigned with " + teacherID;
 		else
@@ -85,21 +60,14 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
-//converting the student details given by the manager into a POJO instance and sending to the server
+
+	
 	public String createSRecord(String studentFields) {
-		logManager.logger.log(Level.INFO, "Initiating S record object creation request");
+		logManager.logger.log(Level.INFO,
+				"Initiating S record object creation request");
 		String result = "";
 		String studentID = "";
-	/*	Student student = new Student(studentID, firstName, lastName);
-		student.setFirstName(firstName);
-		student.setLastName(lastName);
-		student.setStatus(status);
-		student.setStatusDate(statusDate);
-		student.setCoursesRegistered(coursesRegistered);*/
-
-		
-			studentID = serverLoc.createSRecord(studentFields);
-		
+		studentID = serverLoc.createSRecord(studentFields);
 		if (studentID != null)
 			result = "student record is created and assigned with " + studentID;
 		else
@@ -107,45 +75,33 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
-//sending the request for getting the record count in all the servers
+
 	public String getRecordCounts() {
 		String count = "";
 		logManager.logger.log(Level.INFO, "Initiating record count request");
-		
-			count = serverLoc.getRecordCount();
-		
+		count = serverLoc.getRecordCount();
 		logManager.logger.log(Level.INFO, "received....count as follows");
 		logManager.logger.log(Level.INFO, count);
 		return count;
 	}
-	public String transferRecord(String ManagerID, String recordID, String location) {
+
+	public String transferRecord(String ManagerID, String recordID,
+			String location) {
 		String message = "";
 		logManager.logger.log(Level.INFO, "Initiating the record transfer request");
-		
-			message = serverLoc.transferRecord(ManagerID, recordID, location);
-			System.out.println(message);
-		
+		message = serverLoc.transferRecord(ManagerID, recordID, location);
+		System.out.println(message);
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}
-//sending the request for editing the record in the server by giving the new values
-	public String editRecord(String managerID,String recordID, String fieldname, String newvalue) {
+
+	public String editRecord(String managerID, String recordID, String fieldname,
+			String newvalue) {
 		String message = "";
-		logManager.logger.log(Level.INFO, managerID+"has Initiated the record edit request for "+recordID);
-		
-			message = serverLoc.editRecord(managerID,recordID, fieldname, newvalue);
-			System.out.println(message);
-		
-		logManager.logger.log(Level.INFO, message);
-		return message;
-	}
-//sending the request for editing the courses registered for a given student 
-	public String editRecordForCourses(String managerID,String recordID, String fieldname, String newCourses) {
-		String message = "";
-		logManager.logger.log(Level.INFO, managerID+"has Initiated the record edit request for "+recordID);
-		
-		message=serverLoc.editRecordForCourses(managerID,recordID, fieldname, newCourses);
-		
+		logManager.logger.log(Level.INFO,
+				managerID + "has Initiated the record edit request for " + recordID);
+		message = serverLoc.editRecord(managerID, recordID, fieldname, newvalue);
+		System.out.println(message);
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}

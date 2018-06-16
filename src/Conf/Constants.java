@@ -14,8 +14,8 @@ public class Constants {
 	public static String DDO_SERVER_ADDRESS = "localhost";
 
 	public static int TOTAL_SERVERS_COUNT = 3;
-	
-	public static String PROJECT_DIR = System.getProperty("user.dir");; //"F:\\DCMS\\";
-	public static String LOG_DIR = PROJECT_DIR+"\\Logs\\";
+
+	public static String PROJECT_DIR = System.getProperty("user.dir");; // "F:\\DCMS\\";
+	public static String LOG_DIR = PROJECT_DIR + "\\Logs\\";
 
 }

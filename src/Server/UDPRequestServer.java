@@ -9,13 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Conf.ServerCenterLocation;
 import Models.Record;
+
 public class UDPRequestServer extends Thread {
 	DatagramSocket serverSocket;
 	ServerCenterLocation location;
 	private DatagramPacket receivePacket;
 	private DcmsServerImpl server;
 	private Logger loggerInstance;
-
 
 	public UDPRequestServer(DatagramPacket pkt, DcmsServerImpl serverImp) {
 		receivePacket = pkt;
@@ -30,26 +30,27 @@ public class UDPRequestServer extends Thread {
 	@Override
 	public void run() {
 		byte[] responseData;
-		try {	
+		try {
 			String inputPkt = new String(receivePacket.getData()).trim();
 			if (inputPkt.equals("GET_RECORD_COUNT")) {
-				//System.out.println("Got record count pkt");
-				//System.out.println("here :: "+getRecCount());
 				responseData = Integer.toString(getRecCount()).getBytes();
-				serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
+				serverSocket.send(new DatagramPacket(responseData,
+						responseData.length, receivePacket.getAddress(),
 						receivePacket.getPort()));
 			}
-			loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
-		} catch (Exception e) {
 			
+			loggerInstance.log(Level.INFO,
+					"Received " + inputPkt + " from " + location);
+		} catch (Exception e) {
+
 		}
 	}
 
-	private int getRecCount(){
+	private int getRecCount() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {
 			List<Record> list = entry.getValue();
-			count+=list.size();
+			count += list.size();
 		}
 		return count;
 	}
