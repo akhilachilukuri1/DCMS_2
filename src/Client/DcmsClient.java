@@ -33,7 +33,7 @@ public class DcmsClient {
 				Pattern validate = Pattern.compile("([0-9]*)");
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(System.in));
-				System.out.println("enter the managerID");
+				System.out.println("Please enter the Client's ManagerID");
 				String managerID = br.readLine().trim();
 				String manager_number = managerID.substring(3, 6);
 				Matcher matchID = validate.matcher(manager_number);

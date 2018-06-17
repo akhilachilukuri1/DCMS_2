@@ -222,7 +222,7 @@ class DcmsServerImpl extends DcmsPOA {
 		locList.add("DDO");
 		for (String loc : locList) {
 			if (loc == this.location) {
-				recordCount = loc + "," + getCurrServerCnt();
+				recordCount = loc + " " + getCurrServerCnt();
 			} else {
 				try {
 					req[counter] = new UDPRequestProvider(
@@ -306,7 +306,7 @@ class DcmsServerImpl extends DcmsPOA {
 			if(removeRecordAfterTransfer(recordID)=="success")
 			{
 				System.out.println(recordsMap);
-				logManager.logger.log(Level.INFO, "Record created in "+remoteCenterServerName+ " and removed from "+location);
+				logManager.logger.log(Level.INFO, "Record created in  "+remoteCenterServerName+ "  and removed from "+location);
 				return "Record created in "+remoteCenterServerName+ "and removed from "+location;
 			}
 		}catch(Exception e) {

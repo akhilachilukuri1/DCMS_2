@@ -19,6 +19,10 @@ public class UDPRequestProvider extends Thread {
 	private String requestType;
 	private Record recordForTransfer; 
 
+	/**
+	 * UDPRequestProvider handles the UDP message call and transfers the necessary record
+	 * @param server is the Impl object
+	 */
 	public UDPRequestProvider(DcmsServerImpl server, String requestType, Record recordForTransfer) throws IOException {
 		this.server = server;
 		this.requestType = requestType;
@@ -33,6 +37,11 @@ public class UDPRequestProvider extends Thread {
 	public String getTransferResult() {
 		return transferResult;
 	}
+	
+	/**
+	 * Routes the packet to the respective server address
+	 */
+	
 	@Override
 	public void run() {
 		DatagramSocket socket = null;

@@ -1,8 +1,6 @@
 package Server;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.logging.Level;
@@ -10,10 +8,13 @@ import java.util.logging.Logger;
 
 import Conf.Constants;
 import Conf.ServerCenterLocation;
-import Models.Record;
-import Models.Student;
-import Models.Teacher;
-import Server.UDPRequestServer;;
+import Server.UDPRequestServer;
+
+/**
+ * 
+ * ServerUDP is the class that serves other servers' requests
+ *
+ */
 
 public class ServerUDP extends Thread {
 	DatagramSocket serverSocket;
@@ -25,6 +26,14 @@ public class ServerUDP extends Thread {
 	String recordCount;
 	DcmsServerImpl server;
 	int c;
+	
+/**
+* 
+* ServerUDP constructor initializes the UDP socket port number
+* @param loc is an object for the ServerCentreLocation
+* @param logger is used to set the log messages
+* @param serverImp is an object to access serverImpl class  
+*/
 
 	public ServerUDP(ServerCenterLocation loc, Logger logger, DcmsServerImpl serverImp) {
 		location = loc;
@@ -54,6 +63,10 @@ public class ServerUDP extends Thread {
 			logger.log(Level.SEVERE, e.getMessage());
 		}
 	}
+	
+/**
+ * Is evaluated when a message is received and is forwarded to the UDPRequestServer
+ */
 
 	@Override
 	public void run() {
@@ -71,5 +84,9 @@ public class ServerUDP extends Thread {
 			}
 		}
 	}
+
+/**
+ * 	Produces the ManagerID and the Teacher/Student record details to the DCMS_Server_Impl class
+ */
 	
 }
