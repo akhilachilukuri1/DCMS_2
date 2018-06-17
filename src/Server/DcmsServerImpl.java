@@ -283,6 +283,7 @@ class DcmsServerImpl extends DcmsPOA {
 		logManager.logger.log(Level.INFO, ManagerID + " has initiated the record transfer for the recordID: " + recordID
 				+ " operation from " + this.IPaddress + " to " + remoteCenterServerName);
 		String TeacherID = null;
+		
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 
 			List<Record> mylist = val.getValue();

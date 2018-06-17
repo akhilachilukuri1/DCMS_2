@@ -1,6 +1,8 @@
 package Server;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.logging.Level;
@@ -8,6 +10,9 @@ import java.util.logging.Logger;
 
 import Conf.Constants;
 import Conf.ServerCenterLocation;
+import Models.Record;
+import Models.Student;
+import Models.Teacher;
 import Server.UDPRequestServer;;
 
 public class ServerUDP extends Thread {
@@ -66,4 +71,37 @@ public class ServerUDP extends Thread {
 			}
 		}
 	}
+	
+	public void receiveRecord() {
+		byte[] receiveData;
+		while (true) {
+			try {
+				receiveData = new byte[1024];
+				receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				serverSocket.receive(receivePacket);
+				ByteArrayInputStream in = new ByteArrayInputStream(receiveData);
+			    ObjectInputStream is = new ObjectInputStream(in);
+			    Record rec= (Record) is.readObject();
+				//String inputPkt = new String(receivePacket.getData()).trim();
+				DcmsServerImpl server=DcmsServer.serverRepo.get(location);
+				if(rec instanceof Teacher)
+				{
+					Teacher teacher=(Teacher) rec;
+					
+					server.createTRecord(((Teacher) rec).getManagerID(), teacher.getFirstName() + ","
+							+ teacher.getLastName() + "," + teacher.getAddress() + "," + teacher.getPhone() + ","
+							+ teacher.getSpecilization() + "," + teacher.getLocation());
+				}else
+				{
+					Student student=(Student)rec;
+					server.createSRecord(((Teacher) rec).getManagerID(),student.getFirstName() + ","
+					+ student.getLastName() + "," + student.getCoursesRegistered() + ","
+					+ student.isStatus() + "," + student.getStatusDate());
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+	
 }

@@ -1,2 +1,8 @@
 Jun 16, 2018 9:48:24 PM Server.ServerUDP <init>
 INFO: DDO UDP Server Started
+Jun 16, 2018 9:49:36 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO
+Jun 16, 2018 9:50:08 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR1 by manager : MTL1234
+Jun 16, 2018 9:50:15 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from DDO

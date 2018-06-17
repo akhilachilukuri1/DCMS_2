@@ -1,2 +1,6 @@
 Jun 16, 2018 9:48:24 PM Server.ServerUDP <init>
 INFO: LVL UDP Server Started
+Jun 16, 2018 9:49:36 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 16, 2018 9:50:15 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL

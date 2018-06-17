@@ -47,4 +47,9 @@ public abstract class Record implements Serializable {
 		this.lastname = lastname;
 	}
 
+	public byte[] getBytes() {
+		// TODO Auto-generated method stub
+		return this.getBytes();
+	}
+
 }
