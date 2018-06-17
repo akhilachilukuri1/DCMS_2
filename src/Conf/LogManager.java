@@ -14,9 +14,7 @@ public class LogManager {
 	public LogManager(String serverName) {
 		logger = Logger.getLogger(serverName);
 		try {
-			fileHandler = new FileHandler(
-					Constants.LOG_DIR + serverName + "\\" + serverName + ".log",
-					true);
+			fileHandler = new FileHandler(Constants.LOG_DIR + serverName + "\\" + serverName + ".log", true);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fileHandler.setFormatter(formatter);
 			logger.setUseParentHandlers(false);

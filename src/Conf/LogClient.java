@@ -18,7 +18,7 @@ public class LogClient {
 			fileHandler = new FileHandler(ManagerID + ".log");
 			logger.addHandler(consoleHandler);
 			logger.addHandler(fileHandler);
-			
+
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			logger.setLevel(Level.ALL);

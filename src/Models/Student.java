@@ -12,9 +12,8 @@ public class Student extends Record implements Serializable {
 	String studentID;
 	String ManagerID;
 
-	public Student(String managerID, String studentID, String firstName,
-			String lastname, List<String> CoursesRegistered, String status,
-			String statusDate) {
+	public Student(String managerID, String studentID, String firstName, String lastname,
+			List<String> CoursesRegistered, String status, String statusDate) {
 		super(studentID, firstName, lastname);
 		this.setManagerID(managerID);
 		this.setCoursesRegistered(CoursesRegistered);
@@ -79,16 +78,13 @@ public class Student extends Record implements Serializable {
 	}
 
 	public String serialize() {
-		return "Student" + getManagerID() + getRecordID() + "," + getFirstName()
-				+ "," + getLastName() + "," + getCoursesRegistered() + ","
-				+ isStatus() + "," + getStatusDate();
+		return "Student" + getManagerID() + getRecordID() + "," + getFirstName() + "," + getLastName() + ","
+				+ getCoursesRegistered() + "," + isStatus() + "," + getStatusDate();
 	}
 
 	public String toString() {
-		return this.getManagerID() + " " + this.getRecordID() + " "
-				+ this.getFirstName() + " " + this.getLastName() + " "
-				+ this.getCoursesRegistered() + " " + this.isStatus() + " "
-				+ this.getStatusDate();
+		return this.getManagerID() + " " + this.getRecordID() + " " + this.getFirstName() + " " + this.getLastName()
+				+ " " + this.getCoursesRegistered() + " " + this.isStatus() + " " + this.getStatusDate();
 	}
 
 }

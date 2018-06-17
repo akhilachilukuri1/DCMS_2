@@ -34,13 +34,11 @@ public class UDPRequestServer extends Thread {
 			String inputPkt = new String(receivePacket.getData()).trim();
 			if (inputPkt.equals("GET_RECORD_COUNT")) {
 				responseData = Integer.toString(getRecCount()).getBytes();
-				serverSocket.send(new DatagramPacket(responseData,
-						responseData.length, receivePacket.getAddress(),
+				serverSocket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(),
 						receivePacket.getPort()));
 			}
-			
-			loggerInstance.log(Level.INFO,
-					"Received " + inputPkt + " from " + location);
+
+			loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
 		} catch (Exception e) {
 
 		}

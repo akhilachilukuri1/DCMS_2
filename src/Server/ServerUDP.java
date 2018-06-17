@@ -21,8 +21,7 @@ public class ServerUDP extends Thread {
 	DcmsServerImpl server;
 	int c;
 
-	public ServerUDP(ServerCenterLocation loc, Logger logger,
-			DcmsServerImpl serverImp) {
+	public ServerUDP(ServerCenterLocation loc, Logger logger, DcmsServerImpl serverImp) {
 		location = loc;
 		loggerInstance = logger;
 		this.server = serverImp;
@@ -59,12 +58,10 @@ public class ServerUDP extends Thread {
 				receiveData = new byte[1024];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
-				System.out.println(
-						"Received pkt :: " + new String(receivePacket.getData()));
+				System.out.println("Received pkt :: " + new String(receivePacket.getData()));
 				String inputPkt = new String(receivePacket.getData()).trim();
 				new UDPRequestServer(receivePacket, server).start();
-				loggerInstance.log(Level.INFO,
-						"Received " + inputPkt + " from " + location);
+				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
 			} catch (Exception e) {
 			}
 		}

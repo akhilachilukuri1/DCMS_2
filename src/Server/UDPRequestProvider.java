@@ -25,8 +25,7 @@ public class UDPRequestProvider extends Thread {
 			socket = new DatagramSocket();
 			byte[] data = "GET_RECORD_COUNT".getBytes();
 			// System.out.println(server.location);
-			DatagramPacket packet = new DatagramPacket(data, data.length,
-					InetAddress.getByName(server.IPaddress),
+			DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(server.IPaddress),
 					server.serverUDP.udpPortNum);
 			socket.send(packet);
 			data = new byte[100];

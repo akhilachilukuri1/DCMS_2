@@ -2,9 +2,9 @@ module DcmsApp
 {
   interface Dcms
   {	  	
-	  	string createTRecord(in string teacher);
+	  	string createTRecord(in string managerID,in string teacher);
 	
-		string createSRecord(in string student);
+		string createSRecord(in string managerID,in string student);
 	
 		string getRecordCount();
 	
@@ -12,6 +12,5 @@ module DcmsApp
 		
 		string transferRecord(in string managerID, in string recordID, in string location);
 			
-	  	oneway void shutdown();
   };
 };
