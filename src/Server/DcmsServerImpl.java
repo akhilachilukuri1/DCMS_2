@@ -296,6 +296,8 @@ class DcmsServerImpl extends DcmsPOA {
 			Record record = getRecordForTransfer(recordID);
 			if (record == null) {
 				return "RecordID unavailable!";
+			}else if(remoteCenterServerName.equals(this.location)) {
+				return "Please enter a valid location to transfer. The record is already present in "+location;
 			}
 			req = new UDPRequestProvider(
 					DcmsServer.serverRepo.get(remoteCenterServerName),

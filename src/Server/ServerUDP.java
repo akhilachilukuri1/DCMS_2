@@ -26,16 +26,21 @@ public class ServerUDP extends Thread {
 	String recordCount;
 	DcmsServerImpl server;
 	int c;
-	
-/**
-* 
-* ServerUDP constructor initializes the UDP socket port number
-* @param loc is an object for the ServerCentreLocation
-* @param logger is used to set the log messages
-* @param serverImp is an object to access serverImpl class  
-*/
 
-	public ServerUDP(ServerCenterLocation loc, Logger logger, DcmsServerImpl serverImp) {
+	/**
+	 * 
+	 * ServerUDP constructor initializes the UDP socket port number
+	 * 
+	 * @param loc
+	 *            is an object for the ServerCentreLocation
+	 * @param logger
+	 *            is used to set the log messages
+	 * @param serverImp
+	 *            is an object to access serverImpl class
+	 */
+
+	public ServerUDP(ServerCenterLocation loc, Logger logger,
+			DcmsServerImpl serverImp) {
 		location = loc;
 		loggerInstance = logger;
 		this.server = serverImp;
@@ -63,10 +68,11 @@ public class ServerUDP extends Thread {
 			logger.log(Level.SEVERE, e.getMessage());
 		}
 	}
-	
-/**
- * Is evaluated when a message is received and is forwarded to the UDPRequestServer
- */
+
+	/**
+	 * Is evaluated when a message is received and is forwarded to the
+	 * UDPRequestServer
+	 */
 
 	@Override
 	public void run() {
@@ -76,17 +82,20 @@ public class ServerUDP extends Thread {
 				receiveData = new byte[1024];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
-				System.out.println("Received pkt :: " + new String(receivePacket.getData()));
+				System.out.println(
+						"Received pkt :: " + new String(receivePacket.getData()));
 				String inputPkt = new String(receivePacket.getData()).trim();
 				new UDPRequestServer(receivePacket, server).start();
-				loggerInstance.log(Level.INFO, "Received " + inputPkt + " from " + location);
+				loggerInstance.log(Level.INFO,
+						"Received " + inputPkt + " from " + location);
 			} catch (Exception e) {
 			}
 		}
 	}
 
-/**
- * 	Produces the ManagerID and the Teacher/Student record details to the DCMS_Server_Impl class
- */
-	
+	/**
+	 * Produces the ManagerID and the Teacher/Student record details to the
+	 * DCMS_Server_Impl class
+	 */
+
 }

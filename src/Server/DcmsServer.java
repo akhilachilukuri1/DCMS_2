@@ -16,7 +16,7 @@ import org.omg.PortableServer.POA;
 
 import Conf.ServerCenterLocation;
 /*
- * DcmsServer class that creates the CORBA server instance and establishes the initial
+ * DcmsServer class creates the CORBA server instance and establishes the initial
  * communication between the client and the server for performing operations
  */
 public class DcmsServer {
