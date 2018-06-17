@@ -1,7 +1,6 @@
 package Client;
 
 import DcmsApp.*;
-import org.omg.CosNaming.*;
 
 import Conf.Constants;
 import Conf.LogManager;
@@ -10,19 +9,23 @@ import Conf.ServerCenterLocation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Conf.Constants;
-import Conf.LogManager;
-import org.omg.CORBA.*;
+
+/*
+ * DcmsClient implementation to send calls to the server
+ */
 
 public class DcmsClient {
 	static Dcms dcmsImplMTL, dcmsImplLVL, dcmsImplDDO;
 	static LogManager logManager;
 
+	/*
+	 * Client main code to get the input from the user and send calls 
+	 * appropriately to the server
+	 * @param args[] port number and IP address
+	 */
 	public static void main(String args[]) throws IOException {
 		ClientImp serverloc = null;
 		while (true) {
