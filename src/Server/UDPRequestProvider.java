@@ -16,6 +16,11 @@ public class UDPRequestProvider extends Thread {
 	private String recordCount;
 	private Logger logger;
 	private DcmsServerImpl server;
+	
+	/**
+	 * UDPRequestProvider handles the UDP message call and transfers the necessary record
+	 * @param server is the Impl object
+	 */
 
 	public UDPRequestProvider(DcmsServerImpl server) throws IOException {
 		this.server = server;
@@ -25,6 +30,10 @@ public class UDPRequestProvider extends Thread {
 		return recordCount;
 	}
 
+	/**
+	 * Routes the packet to the respective server address
+	 */
+	
 	@Override
 	public void run() {
 		DatagramSocket socket = null;
@@ -46,6 +55,12 @@ public class UDPRequestProvider extends Thread {
 			}
 		}
 	}
+	
+	/**
+	 * Transfers the entire record in the form of an UDP message
+	 * @param rec contains the entire record to be transfered
+	 * @param loc is the location object
+	 */
 	
 	public void transferRecord(Record rec,ServerCenterLocation loc) {
 		DatagramSocket socket = null;

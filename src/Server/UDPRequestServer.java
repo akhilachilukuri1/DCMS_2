@@ -16,6 +16,12 @@ public class UDPRequestServer extends Thread {
 	private DatagramPacket receivePacket;
 	private DcmsServerImpl server;
 	private Logger loggerInstance;
+	
+	/**
+	 * UDPRequestServer forwards the request received to the respective server port
+	 * @param pkt is the datagram packet
+	 * @param serverImp is the server Impl object
+	 */
 
 	public UDPRequestServer(DatagramPacket pkt, DcmsServerImpl serverImp) {
 		receivePacket = pkt;
@@ -27,6 +33,11 @@ public class UDPRequestServer extends Thread {
 		}
 	}
 
+	
+	/**
+	 * Forwards the request made by the UDP Server
+	 */
+	
 	@Override
 	public void run() {
 		byte[] responseData;
@@ -44,6 +55,11 @@ public class UDPRequestServer extends Thread {
 		}
 	}
 
+/**
+ *Returns the number of entires made in the hasahmap 	
+ *
+ */
+	
 	private int getRecCount() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {
