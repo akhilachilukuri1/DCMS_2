@@ -18,6 +18,13 @@ import Models.Record;
 import Models.Student;
 import Models.Teacher;
 
+/**
+ * 
+ * DcmsServerImpl performs all the functionality for MTL,LVL and DDO server Locations
+ *
+ */
+
+
 class DcmsServerImpl extends DcmsPOA {
 	private ORB orb;
 
@@ -61,6 +68,16 @@ class DcmsServerImpl extends DcmsPOA {
 		}
 	}
 
+
+	/**
+	 *Once the teacher record is created,
+	 *createTRRecord function returns the record ID of the teacher record created to the client
+	 *@param managerID gets the managerID 
+	 *@param teacherField values of the teacher attribute concatenated by the comma
+	 *which are received from the client 
+	 *  
+	 */
+		
 	@Override
 	public synchronized String createTRecord(String managerID,String teacher) {
 
@@ -82,7 +99,16 @@ class DcmsServerImpl extends DcmsPOA {
 		return teacherID;
 
 	}
-
+	
+	/**
+	 *Once the student record is created,
+	 *the function createSRecord returns the record ID of the student record created to the client
+	 *@param managerID gets the managerID 
+	 *@param studentFields values of the student attribute concatenated by the comma
+	 *which are received the client 
+	 *  
+	 */
+	
 	@Override
 	public synchronized String createSRecord(String managerID,String student) {
 
@@ -105,7 +131,19 @@ class DcmsServerImpl extends DcmsPOA {
 		}
 		return studentID;
 	}
-
+	
+	
+	/**
+	 *Adds the Teacher and Student to the HashMap
+	 *the function addRecordToHashMap returns the success message, if the student / teacher record is created successfully 
+	 *else returns Error message
+	 *@param key gets the key of the recordID stored in the HashMap 
+	 *@param teacher gets the teacher object if received from createTRecord function
+	 *@param student gets the student object if received from createSRecord function  
+	 *which are received the respective functions. 
+	 *  
+	 */
+	
 	private synchronized String addRecordToHashMap(String key, Teacher teacher, Student student) {
 		String message = "Error";
 		if (teacher != null) {
@@ -137,6 +175,12 @@ class DcmsServerImpl extends DcmsPOA {
 		return message;
 	}
 
+	/**
+	 *
+	 *returns the current server record count
+	 *  
+	 */
+	
 	private int getCurrServerCnt() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : this.recordsMap.entrySet()) {
@@ -146,6 +190,11 @@ class DcmsServerImpl extends DcmsPOA {
 		return count;
 	}
 
+	/**
+	 *invokes record count on the corresponding MTL/LVL/DDO server to get record count on all the servers
+	 *  
+	 */
+	
 	@Override
 	public String getRecordCount() {
 		String recordCount = null;
@@ -179,6 +228,16 @@ class DcmsServerImpl extends DcmsPOA {
 		return recordCount;
 	}
 
+	
+	/**
+	 *The edit record function performs the edit operation on the server and returns the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param fieldname gets the fieldname to be edited for the given recordID
+	 *@param newvalue gets the newvalue to be replaced to the given fieldname 
+	 *from the client
+	 */
+
 	@Override
 	public String editRecord(String managerID, String recordID, String fieldname, String newvalue) {
 		String type = recordID.substring(0, 2);
@@ -191,6 +250,15 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Operation not performed!";
 	}
 
+	
+	/**
+	 *Performs the transfer record to the remoteCenterServer by calling the  transferTRRecord or transferSRRecord
+	 *and return the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param remoteCenterServerName gets the location to transfer the recordID 
+	 *from the client
+	 */
 	public String transferRecord(String ManagerID, String recordID, String remoteCenterServerName) {
 		String type = recordID.substring(0, 2);
 		if (type.toUpperCase().equals("TR")) {
@@ -201,7 +269,16 @@ class DcmsServerImpl extends DcmsPOA {
 		logManager.logger.log(Level.INFO, "Record transfer successful");
 		return "Operation not performed!";
 	}
-
+	
+	
+	/**
+	 *Performs the transfer Teacher record to the destination remoteCenterServer and return the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param remoteCenterServerName gets the location to transfer the recordID 
+	 *from the client
+	 */
+	
 	public synchronized String transferTRRecord(String ManagerID, String recordID, String remoteCenterServerName) {
 		logManager.logger.log(Level.INFO, ManagerID + " has initiated the record transfer for the recordID: " + recordID
 				+ " operation from " + this.IPaddress + " to " + remoteCenterServerName);
@@ -265,6 +342,14 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Record with " + recordID + " not found";
 
 	}
+	
+	/**
+	 *Performs the transfer Student record to the destination remoteCenterServer and return the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param remoteCenterServerName gets the location to transfer the recordID 
+	 *from the client
+	 */
 
 	public synchronized String transferSRRecord(String ManagerID, String recordID, String remoteCenterServerName) {
 		logManager.logger.log(Level.INFO, ManagerID + " has initiated the record transfer for the recordID: " + recordID
@@ -329,6 +414,14 @@ class DcmsServerImpl extends DcmsPOA {
 
 	}
 
+
+	/**
+	 *The putCoursesinList function adds the newCourses to the List
+	 *@param newvalue gets the newcourses value and adds to the list 
+	 *
+	 */
+
+	
 	private List<String> putCoursesinList(String newvalue) {
 		String[] courses = newvalue.split("//");
 		ArrayList<String> courseList = new ArrayList<>();
@@ -337,6 +430,15 @@ class DcmsServerImpl extends DcmsPOA {
 		return courseList;
 	}
 
+	/**
+	 *The editSRRecord function performs the edit operation on the student record and returns the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param fieldname gets the fieldname to be edited for the given recordID
+	 *@param newvalue gets the newvalue to be replaced to the given fieldname 
+	 *from the client
+	 */
+	
 	private synchronized String editSRRecord(String maangerID, String recordID, String fieldname, String newvalue) {
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 			List<Record> mylist = value.getValue();
@@ -364,6 +466,17 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Record with " + recordID + "not found!";
 	}
 
+	
+	/**
+	 *The editTRRecord function performs the edit operation on the Teacher record and returns the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param fieldname gets the fieldname to be edited for the given recordID
+	 *@param newvalue gets the newvalue to be replaced to the given fieldname 
+	 *from the client
+	 */
+	
+	
 	private synchronized String editTRRecord(String managerID, String recordID, String fieldname, String newvalue) {
 		for (Entry<String, List<Record>> val : recordsMap.entrySet()) {
 

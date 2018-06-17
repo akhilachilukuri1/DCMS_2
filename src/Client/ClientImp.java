@@ -112,11 +112,10 @@ public class ClientImp {
 		return count;
 	}
 	/**
-	 *
-	 *
-	 *invokes the record transfer on server and 
-	 *gets the appropriate message, which has the record ID of transfered record in the remote server 
-	 * 
+	 *invokes edit record on the server return the appropriate message
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param location gets the location to transfer the recordID 
 	 */
 	public String transferRecord(String ManagerID, String recordID, String location) {
 		String message = "";
@@ -127,9 +126,11 @@ public class ClientImp {
 		return message;
 	}
 	/**
-	 *
 	 *invokes edit record on the server return the appropriate message
-	 * 
+	 *@param managerID gets the managerID 
+	 *@param recordID gets the recordID to be edited
+	 *@param fieldname gets the fieldname to be edited for the given recordID
+	 *@param newvalue gets the newvalue to be replaced to the given fieldname
 	 */
 	public String editRecord(String managerID, String recordID, String fieldname, String newvalue) {
 		String message = "";
