@@ -193,9 +193,9 @@ class DcmsServerImpl extends DcmsPOA {
 
 	public String transferRecord(String ManagerID, String recordID, String remoteCenterServerName) {
 		String type = recordID.substring(0, 2);
-		if (type.equals("TR")) {
+		if (type.toUpperCase().equals("TR")) {
 			return transferTRRecord(ManagerID, recordID, remoteCenterServerName);
-		} else if (type.equals("SR")) {
+		}else if (type.toUpperCase().equals("SR")) {
 			return transferSRRecord(ManagerID, recordID, remoteCenterServerName);
 		}
 		logManager.logger.log(Level.INFO, "Record transfer successful");

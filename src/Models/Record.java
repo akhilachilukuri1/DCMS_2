@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
 *
 *contains record ID,first name,last name
-* has the getters and setters for the 
+*has the getters and setters for the 
 */
 public abstract class Record implements Serializable {
 	private String firstName;
