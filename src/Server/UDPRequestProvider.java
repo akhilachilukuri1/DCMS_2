@@ -13,17 +13,21 @@ public class UDPRequestProvider extends Thread {
 	private static final String MTL = null;
 	private static final String LVL = null;
 	private static final String DDO = null;
-	private String recordCount,transferResult;
+	private String recordCount, transferResult;
 	private Logger logger;
 	private DcmsServerImpl server;
 	private String requestType;
-	private Record recordForTransfer; 
+	private Record recordForTransfer;
 
 	/**
-	 * UDPRequestProvider handles the UDP message call and transfers the necessary record
-	 * @param server is the Impl object
+	 * UDPRequestProvider handles the UDP message call and transfers the necessary
+	 * record
+	 * 
+	 * @param server
+	 *            is the Impl object
 	 */
-	public UDPRequestProvider(DcmsServerImpl server, String requestType, Record recordForTransfer) throws IOException {
+	public UDPRequestProvider(DcmsServerImpl server, String requestType,
+			Record recordForTransfer) throws IOException {
 		this.server = server;
 		this.requestType = requestType;
 		this.recordForTransfer = recordForTransfer;
@@ -33,34 +37,36 @@ public class UDPRequestProvider extends Thread {
 		return recordCount;
 	}
 
-	
 	public String getTransferResult() {
 		return transferResult;
 	}
-	
+
 	/**
 	 * Routes the packet to the respective server address
 	 */
-	
+
 	@Override
 	public void run() {
 		DatagramSocket socket = null;
 		try {
-			switch(requestType) {
+			switch (requestType) {
 			case "GET_RECORD_COUNT":
 				socket = new DatagramSocket();
 				byte[] data = "GET_RECORD_COUNT".getBytes();
-				DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(server.IPaddress),
+				DatagramPacket packet = new DatagramPacket(data, data.length,
+						InetAddress.getByName(server.IPaddress),
 						server.serverUDP.udpPortNum);
 				socket.send(packet);
 				data = new byte[100];
 				socket.receive(new DatagramPacket(data, data.length));
-				recordCount = server.location + " "+ new String(data);
+				recordCount = server.location + " " + new String(data);
 				break;
 			case "TRANSFER_RECORD":
 				socket = new DatagramSocket();
-				byte[] data1 = ("TRANSFER_RECORD"+"#"+recordForTransfer.toString()).getBytes();
-				DatagramPacket packet1 = new DatagramPacket(data1, data1.length, InetAddress.getByName(server.IPaddress),
+				byte[] data1 = ("TRANSFER_RECORD" + "#"
+						+ recordForTransfer.toString()).getBytes();
+				DatagramPacket packet1 = new DatagramPacket(data1, data1.length,
+						InetAddress.getByName(server.IPaddress),
 						server.serverUDP.udpPortNum);
 				socket.send(packet1);
 				data1 = new byte[100];
@@ -76,5 +82,5 @@ public class UDPRequestProvider extends Thread {
 			}
 		}
 	}
-	
+
 }

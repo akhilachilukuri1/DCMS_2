@@ -19,11 +19,14 @@ public class UDPRequestServer extends Thread {
 	private DatagramPacket receivePacket;
 	private DcmsServerImpl server;
 	private Logger loggerInstance;
-	
+
 	/**
 	 * UDPRequestServer forwards the request received to the respective server port
-	 * @param pkt is the datagram packet
-	 * @param serverImp is the server Impl object
+	 * 
+	 * @param pkt
+	 *            is the datagram packet
+	 * @param serverImp
+	 *            is the server Impl object
 	 */
 
 	public UDPRequestServer(DatagramPacket pkt, DcmsServerImpl serverImp) {
@@ -36,11 +39,10 @@ public class UDPRequestServer extends Thread {
 		}
 	}
 
-	
 	/**
 	 * Forwards the request made by the UDP Server
 	 */
-	
+
 	@Override
 	public void run() {
 		byte[] responseData;
@@ -72,8 +74,8 @@ public class UDPRequestServer extends Thread {
 			loggerInstance.log(Level.INFO,
 					"Received " + inputPkt + " from " + location);
 		} catch (Exception e) {
-			//System.out.println(
-					//"Exception in UDP Request server Thread :: " + e.getMessage());
+			// System.out.println(
+			// "Exception in UDP Request server Thread :: " + e.getMessage());
 		}
 	}
 
@@ -92,7 +94,7 @@ public class UDPRequestServer extends Thread {
 			Teacher teacherObj = new Teacher(managerID, recordID, firstName,
 					lastName, address, phone, specialization, location);
 			String message = server.addRecordToHashMap(key, teacherObj, null);
-			//System.out.println(message + " " + server.recordsMap.get(key));
+			// System.out.println(message + " " + server.recordsMap.get(key));
 			return message + " " + server.recordsMap.get(key);
 		} else {
 			String firstName = temp[2];
@@ -105,16 +107,16 @@ public class UDPRequestServer extends Thread {
 					lastName, courseList, status, statusDate);
 			String key = lastName.substring(0, 1);
 			String message = server.addRecordToHashMap(key, null, studentObj);
-			//System.out.println(message + " " + server.recordsMap.get(key));
+			// System.out.println(message + " " + server.recordsMap.get(key));
 			return message + " " + server.recordsMap.get(key);
 		}
 	}
 
-/**
- *Returns the number of entires made in the hasahmap 	
- *
- */
-	
+	/**
+	 * Returns the number of entires made in the hasahmap
+	 *
+	 */
+
 	private int getRecCount() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : server.recordsMap.entrySet()) {

@@ -15,7 +15,10 @@ import org.omg.PortableServer.*;
 import org.omg.PortableServer.POA;
 
 import Conf.ServerCenterLocation;
-
+/*
+ * DcmsServer class that creates the CORBA server instance and establishes the initial
+ * communication between the client and the server for performing operations
+ */
 public class DcmsServer {
 	static HashMap<String, DcmsServerImpl> serverRepo;
 	static Dcms mtlhref, lvlhref, ddohref;
@@ -23,7 +26,8 @@ public class DcmsServer {
 	static {
 		System.out.println("Starting CORBA Service!");
 		try {
-			Runtime.getRuntime().exec("orbd -ORBInitialPort 1050 -ORBInitialHost localhost");
+			Runtime.getRuntime()
+					.exec("orbd -ORBInitialPort 1050 -ORBInitialHost localhost");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -32,9 +36,12 @@ public class DcmsServer {
 
 	private static void init() {
 
-		boolean isMtlDir = new File(Constants.LOG_DIR + ServerCenterLocation.MTL.toString()).mkdir();
-		boolean isLvlDir = new File(Constants.LOG_DIR + ServerCenterLocation.LVL.toString()).mkdir();
-		boolean isDdoDir = new File(Constants.LOG_DIR + ServerCenterLocation.DDO.toString()).mkdir();
+		boolean isMtlDir = new File(
+				Constants.LOG_DIR + ServerCenterLocation.MTL.toString()).mkdir();
+		boolean isLvlDir = new File(
+				Constants.LOG_DIR + ServerCenterLocation.LVL.toString()).mkdir();
+		boolean isDdoDir = new File(
+				Constants.LOG_DIR + ServerCenterLocation.DDO.toString()).mkdir();
 		boolean globalDir = new File(Constants.LOG_DIR + "ServerGlobal").mkdir();
 	}
 
@@ -43,7 +50,8 @@ public class DcmsServer {
 
 			init();
 			ORB orb = ORB.init(args, null);
-			POA rootpoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+			POA rootpoa = POAHelper
+					.narrow(orb.resolve_initial_references("RootPOA"));
 			rootpoa.the_POAManager().activate();
 
 			// create servant and register it with the ORB
@@ -64,7 +72,8 @@ public class DcmsServer {
 			lvlhref = DcmsHelper.narrow(lvlRef);
 			ddohref = DcmsHelper.narrow(ddoRef);
 
-			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+			org.omg.CORBA.Object objRef = orb
+					.resolve_initial_references("NameService");
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 
 			NameComponent mtlPath[] = ncRef.to_name("MTL");

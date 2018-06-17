@@ -226,7 +226,8 @@ class DcmsServerImpl extends DcmsPOA {
 			} else {
 				try {
 					req[counter] = new UDPRequestProvider(
-							DcmsServer.serverRepo.get(loc), "GET_RECORD_COUNT",null);
+							DcmsServer.serverRepo.get(loc), "GET_RECORD_COUNT",
+							null);
 				} catch (IOException e) {
 					logManager.logger.log(Level.SEVERE, e.getMessage());
 				}
@@ -274,8 +275,8 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	/**
-	 * Performs the transfer record to the remoteCenterServer by sending the appropriate
-	 * packet to the UDPRequestProvider thread
+	 * Performs the transfer record to the remoteCenterServer by sending the
+	 * appropriate packet to the UDPRequestProvider thread
 	 *
 	 * 
 	 * @param managerID
@@ -290,37 +291,40 @@ class DcmsServerImpl extends DcmsPOA {
 		String type = recordID.substring(0, 2);
 		UDPRequestProvider req = null;
 		try {
-			System.out.println("Transferring record to :: "+remoteCenterServerName);
+			System.out
+					.println("Transferring record to :: " + remoteCenterServerName);
 			Record record = getRecordForTransfer(recordID);
-			if(record == null) {
+			if (record == null) {
 				return "RecordID unavailable!";
 			}
 			req = new UDPRequestProvider(
-						DcmsServer.serverRepo.get(remoteCenterServerName),"TRANSFER_RECORD", record);
+					DcmsServer.serverRepo.get(remoteCenterServerName),
+					"TRANSFER_RECORD", record);
 		} catch (IOException e) {
 			logManager.logger.log(Level.SEVERE, e.getMessage());
 		}
 		req.start();
 		try {
 			req.join();
-			if(removeRecordAfterTransfer(recordID)=="success")
-			{
+			if (removeRecordAfterTransfer(recordID) == "success") {
 				System.out.println(recordsMap);
-				logManager.logger.log(Level.INFO, "Record created in  "+remoteCenterServerName+ "  and removed from "+location);
-				return "Record created in "+remoteCenterServerName+ "and removed from "+location;
+				logManager.logger.log(Level.INFO, "Record created in  "
+						+ remoteCenterServerName + "  and removed from " + location);
+				return "Record created in " + remoteCenterServerName
+						+ "and removed from " + location;
 			}
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
-		
+
 		return "Transfer record operation unsuccessful!";
 	}
-	
+
 	private String removeRecordAfterTransfer(String recordID) {
 		for (Entry<String, List<Record>> element : recordsMap.entrySet()) {
 			List<Record> mylist = element.getValue();
-			for(int i =0 ;i<mylist.size();i++) {
-				if(mylist.get(i).getRecordID().equals(recordID)) {
+			for (int i = 0; i < mylist.size(); i++) {
+				if (mylist.get(i).getRecordID().equals(recordID)) {
 					mylist.remove(i);
 				}
 			}
@@ -328,19 +332,18 @@ class DcmsServerImpl extends DcmsPOA {
 		}
 		return "success";
 	}
-	
-	
+
 	private Record getRecordForTransfer(String recordID) {
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 			List<Record> mylist = value.getValue();
 			Optional<Record> record = mylist.stream()
 					.filter(x -> x.getRecordID().equals(recordID)).findFirst();
-			if(recordID.contains("TR")){
-				if(record.isPresent())
-					return (Teacher)record.get();
-			}else {
-				if(record.isPresent())
-					return (Student)record.get();
+			if (recordID.contains("TR")) {
+				if (record.isPresent())
+					return (Teacher) record.get();
+			} else {
+				if (record.isPresent())
+					return (Student) record.get();
 			}
 		}
 		return null;

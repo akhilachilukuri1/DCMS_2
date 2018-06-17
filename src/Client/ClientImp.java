@@ -24,19 +24,26 @@ public class ClientImp {
 	LogManager logManager = null;
 	Dcms serverLoc = null;
 	static NamingContextExt ncRef = null;
+
 	/**
 	 * 
-	 *creates the client instance with 
-	 *  @param args gets the port number and IP address and creates the ORB object with it.
-	 *  @param location gets the location of the client,based on the location 
-	 *                  the appropriate server instance is called to perform 
-	 *                  the operation requested by the manager.
-	 *  @param ManagerID creates the log file with the managerID.
+	 * creates the client instance with
+	 * 
+	 * @param args
+	 *            gets the port number and IP address and creates the ORB object
+	 *            with it.
+	 * @param location
+	 *            gets the location of the client,based on the location the
+	 *            appropriate server instance is called to perform the operation
+	 *            requested by the manager.
+	 * @param ManagerID
+	 *            creates the log file with the managerID.
 	 */
 	ClientImp(String[] args, ServerCenterLocation location, String ManagerID) {
 		try {
 			ORB orb = ORB.init(args, null);
-			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
+			org.omg.CORBA.Object objRef = orb
+					.resolve_initial_references("NameService");
 			ncRef = NamingContextExtHelper.narrow(objRef);
 
 			if (location == ServerCenterLocation.MTL) {
@@ -53,21 +60,25 @@ public class ClientImp {
 			e.printStackTrace(System.out);
 		}
 	}
+
 	/**
-	 *If the teacher record is created,
-	 *It Displays the record ID of the teacher record created
-	 *on the server with the values given by the manager.
-	 *If the teacher record is not created it displays the message.
-	 *@param managerID gets the managerID 
-	 *@param teacherField values of the teacher attribute concatenated by the comma
-	 *					   and are sent to the server 
-	 *  
+	 * If the teacher record is created, It Displays the record ID of the teacher
+	 * record created on the server with the values given by the manager. If the
+	 * teacher record is not created it displays the message.
+	 * 
+	 * @param managerID
+	 *            gets the managerID
+	 * @param teacherField
+	 *            values of the teacher attribute concatenated by the comma and are
+	 *            sent to the server
+	 * 
 	 */
-	public String createTRecord(String managerID,String teacherField) {
-		logManager.logger.log(Level.INFO, "Initiating T record object creation request");
+	public String createTRecord(String managerID, String teacherField) {
+		logManager.logger.log(Level.INFO,
+				"Initiating T record object creation request");
 		String result = "";
 		String teacherID = "";
-		teacherID = serverLoc.createTRecord(managerID,teacherField);
+		teacherID = serverLoc.createTRecord(managerID, teacherField);
 		if (teacherID != null)
 			result = "Teacher record is created and assigned with " + teacherID;
 		else
@@ -75,21 +86,25 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
+
 	/**
-	 *If the student record is created,
-	 *It Displays the record ID of the student record created
-	 *on the server with the values given by the manager.
-	 *If the teacher record is not created it displays the message.
-	 *@param managerID gets the managerID 
-	 *@param studentFields values of the student attribute concatenated by the comma
-	 *					   and are sent to the server 
-	 *  
+	 * If the student record is created, It Displays the record ID of the student
+	 * record created on the server with the values given by the manager. If the
+	 * teacher record is not created it displays the message.
+	 * 
+	 * @param managerID
+	 *            gets the managerID
+	 * @param studentFields
+	 *            values of the student attribute concatenated by the comma and are
+	 *            sent to the server
+	 * 
 	 */
-	public String createSRecord(String managerID,String studentFields) {
-		logManager.logger.log(Level.INFO, "Initiating S record object creation request");
+	public String createSRecord(String managerID, String studentFields) {
+		logManager.logger.log(Level.INFO,
+				"Initiating S record object creation request");
 		String result = "";
 		String studentID = "";
-		studentID = serverLoc.createSRecord(managerID,studentFields);
+		studentID = serverLoc.createSRecord(managerID, studentFields);
 		if (studentID != null)
 			result = "student record is created and assigned with " + studentID;
 		else
@@ -97,11 +112,13 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, result);
 		return result;
 	}
+
 	/**
 	 *
 	 *
-	 *invokes record count on the corresponding server to get record count on all the servers
-	 *  
+	 * invokes record count on the corresponding server to get record count on all
+	 * the servers
+	 * 
 	 */
 	public String getRecordCounts() {
 		String count = "";
@@ -111,13 +128,19 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, count);
 		return count;
 	}
+
 	/**
-	 *invokes edit record on the server return the appropriate message
-	 *@param managerID gets the managerID 
-	 *@param recordID gets the recordID to be edited
-	 *@param location gets the location to transfer the recordID 
+	 * invokes edit record on the server return the appropriate message
+	 * 
+	 * @param managerID
+	 *            gets the managerID
+	 * @param recordID
+	 *            gets the recordID to be edited
+	 * @param location
+	 *            gets the location to transfer the recordID
 	 */
-	public String transferRecord(String ManagerID, String recordID, String location) {
+	public String transferRecord(String ManagerID, String recordID,
+			String location) {
 		String message = "";
 		logManager.logger.log(Level.INFO, "Initiating the record transfer request");
 		message = serverLoc.transferRecord(ManagerID, recordID, location);
@@ -125,16 +148,24 @@ public class ClientImp {
 		logManager.logger.log(Level.INFO, message);
 		return message;
 	}
+
 	/**
-	 *invokes edit record on the server return the appropriate message
-	 *@param managerID gets the managerID 
-	 *@param recordID gets the recordID to be edited
-	 *@param fieldname gets the fieldname to be edited for the given recordID
-	 *@param newvalue gets the newvalue to be replaced to the given fieldname
+	 * invokes edit record on the server return the appropriate message
+	 * 
+	 * @param managerID
+	 *            gets the managerID
+	 * @param recordID
+	 *            gets the recordID to be edited
+	 * @param fieldname
+	 *            gets the fieldname to be edited for the given recordID
+	 * @param newvalue
+	 *            gets the newvalue to be replaced to the given fieldname
 	 */
-	public String editRecord(String managerID, String recordID, String fieldname, String newvalue) {
+	public String editRecord(String managerID, String recordID, String fieldname,
+			String newvalue) {
 		String message = "";
-		logManager.logger.log(Level.INFO, managerID + "has Initiated the record edit request for " + recordID);
+		logManager.logger.log(Level.INFO,
+				managerID + "has Initiated the record edit request for " + recordID);
 		message = serverLoc.editRecord(managerID, recordID, fieldname, newvalue);
 		// System.out.println(message);
 		logManager.logger.log(Level.INFO, message);
