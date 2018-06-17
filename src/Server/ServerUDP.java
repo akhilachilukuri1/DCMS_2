@@ -92,10 +92,4 @@ public class ServerUDP extends Thread {
 			}
 		}
 	}
-
-	/**
-	 * Produces the ManagerID and the Teacher/Student record details to the
-	 * DCMS_Server_Impl class
-	 */
-
 }

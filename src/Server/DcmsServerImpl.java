@@ -83,7 +83,7 @@ class DcmsServerImpl extends DcmsPOA {
 	 */
 
 	@Override
-	public synchronized String createTRecord(String managerID, String teacher) {
+	public String createTRecord(String managerID, String teacher) {
 
 		String temp[] = teacher.split(",");
 		// String managerID = temp[0];
@@ -119,7 +119,7 @@ class DcmsServerImpl extends DcmsPOA {
 	 */
 
 	@Override
-	public synchronized String createSRecord(String managerID, String student) {
+	public String createSRecord(String managerID, String student) {
 
 		String temp[] = student.split(",");
 		// String managerID = temp[0];
@@ -196,7 +196,7 @@ class DcmsServerImpl extends DcmsPOA {
 	 * 
 	 */
 
-	private int getCurrServerCnt() {
+	private synchronized int getCurrServerCnt() {
 		int count = 0;
 		for (Map.Entry<String, List<Record>> entry : this.recordsMap.entrySet()) {
 			List<Record> list = entry.getValue();
@@ -322,7 +322,7 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Transfer record operation unsuccessful!";
 	}
 
-	private String removeRecordAfterTransfer(String recordID) {
+	private synchronized String removeRecordAfterTransfer(String recordID) {
 		for (Entry<String, List<Record>> element : recordsMap.entrySet()) {
 			List<Record> mylist = element.getValue();
 			for (int i = 0; i < mylist.size(); i++) {
@@ -335,7 +335,7 @@ class DcmsServerImpl extends DcmsPOA {
 		return "success";
 	}
 
-	private Record getRecordForTransfer(String recordID) {
+	private synchronized Record getRecordForTransfer(String recordID) {
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 			List<Record> mylist = value.getValue();
 			Optional<Record> record = mylist.stream()
@@ -359,7 +359,7 @@ class DcmsServerImpl extends DcmsPOA {
 	 *
 	 */
 
-	public List<String> putCoursesinList(String newvalue) {
+	public synchronized List<String> putCoursesinList(String newvalue) {
 		String[] courses = newvalue.split("//");
 		ArrayList<String> courseList = new ArrayList<>();
 		for (String course : courses)
