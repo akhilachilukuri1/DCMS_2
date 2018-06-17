@@ -13,64 +13,52 @@ public class UDPRequestProvider extends Thread {
 	private static final String MTL = null;
 	private static final String LVL = null;
 	private static final String DDO = null;
-	private String recordCount;
+	private String recordCount,transferResult;
 	private Logger logger;
 	private DcmsServerImpl server;
+	private String requestType;
+	private Record recordForTransfer; 
 
-	public UDPRequestProvider(DcmsServerImpl server) throws IOException {
+	public UDPRequestProvider(DcmsServerImpl server, String requestType, Record recordForTransfer) throws IOException {
 		this.server = server;
+		this.requestType = requestType;
+		this.recordForTransfer = recordForTransfer;
 	}
 
 	public String getRemoteRecordCount() {
 		return recordCount;
 	}
 
+	
+	public String getTransferResult() {
+		return transferResult;
+	}
 	@Override
 	public void run() {
 		DatagramSocket socket = null;
 		try {
-			socket = new DatagramSocket();
-			byte[] data = "GET_RECORD_COUNT".getBytes();
-			// System.out.println(server.location);
-			DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(server.IPaddress),
-					server.serverUDP.udpPortNum);
-			socket.send(packet);
-			data = new byte[100];
-			socket.receive(new DatagramPacket(data, data.length));
-			recordCount = server.location + "," + new String(data);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			if (socket != null) {
-				socket.close();
-			}
-		}
-	}
-	
-	public void transferRecord(Record rec,ServerCenterLocation loc) {
-		DatagramSocket socket = null;
-		try {
-			socket = new DatagramSocket();
-			byte[] data = rec.getBytes();
-			String IPaddress=null;
-			// System.out.println(server.location);
-			switch (loc) {
-			case MTL:
-				IPaddress = Constants.MTL_SERVER_ADDRESS;
+			switch(requestType) {
+			case "GET_RECORD_COUNT":
+				socket = new DatagramSocket();
+				byte[] data = "GET_RECORD_COUNT".getBytes();
+				DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(server.IPaddress),
+						server.serverUDP.udpPortNum);
+				socket.send(packet);
+				data = new byte[100];
+				socket.receive(new DatagramPacket(data, data.length));
+				recordCount = server.location + " "+ new String(data);
 				break;
-			case LVL:
-				IPaddress = Constants.LVL_SERVER_ADDRESS;
-				break;
-			case DDO:
-				IPaddress = Constants.DDO_SERVER_ADDRESS;
+			case "TRANSFER_RECORD":
+				socket = new DatagramSocket();
+				byte[] data1 = ("TRANSFER_RECORD"+"#"+recordForTransfer.toString()).getBytes();
+				DatagramPacket packet1 = new DatagramPacket(data1, data1.length, InetAddress.getByName(server.IPaddress),
+						server.serverUDP.udpPortNum);
+				socket.send(packet1);
+				data1 = new byte[100];
+				socket.receive(new DatagramPacket(data1, data1.length));
+				transferResult = new String(data1);
 				break;
 			}
-			DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(IPaddress),
-					server.serverUDP.udpPortNum);
-			socket.send(packet);
-			data = new byte[100];
-			socket.receive(new DatagramPacket(data, data.length));
-			
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 		} finally {

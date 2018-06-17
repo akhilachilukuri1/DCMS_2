@@ -83,8 +83,8 @@ public class Student extends Record implements Serializable {
 	}
 
 	public String toString() {
-		return this.getManagerID() + " " + this.getRecordID() + " " + this.getFirstName() + " " + this.getLastName()
-				+ " " + this.getCoursesRegistered() + " " + this.isStatus() + " " + this.getStatusDate();
+		return this.getManagerID() + "," + this.getRecordID() + "," + this.getFirstName() + "," + this.getLastName()
+				+ "," + this.getCoursesRegistered() + "," + this.isStatus() + "," + this.getStatusDate();
 	}
 
 }

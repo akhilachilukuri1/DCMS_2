@@ -17,8 +17,6 @@ public abstract class Record implements Serializable {
 		this.setRecordID(recordID);
 	}
 
-	public abstract String serialize();
-
 	public String getRecordID() {
 		return recordID;
 	}
@@ -48,8 +46,6 @@ public abstract class Record implements Serializable {
 	}
 
 	public byte[] getBytes() {
-		// TODO Auto-generated method stub
 		return this.getBytes();
 	}
-
 }

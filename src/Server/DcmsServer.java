@@ -64,11 +64,7 @@ public class DcmsServer {
 			lvlhref = DcmsHelper.narrow(lvlRef);
 			ddohref = DcmsHelper.narrow(ddoRef);
 
-			// get the root naming context
-			// NameService invokes the name service
 			org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
-			// Use NamingContextExt which is part of the Interoperable
-			// Naming Service (INS) specification.
 			NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
 
 			NameComponent mtlPath[] = ncRef.to_name("MTL");

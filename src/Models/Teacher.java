@@ -92,12 +92,11 @@ public class Teacher extends Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.getManagerID() + " " + this.getRecordID() + " " + this.getFirstName() + " " + this.getLastName()
-				+ " " + this.getAddress() + " " + this.getPhone() + " " + this.getSpecilization() + " "
+		return this.getManagerID() + "," + this.getRecordID() + "," + this.getFirstName() + "," + this.getLastName()
+				+ "," + this.getAddress() + "," + this.getPhone() + "," + this.getSpecilization() + ","
 				+ this.getLocation();
 	}
 
-	@Override
 	public String serialize() {
 		return "Teacher" + getManagerID() + getRecordID() + "," + getFirstName() + "," + getLastName() + ","
 				+ getAddress() + "," + getPhone() + "," + getSpecilization() + "," + getLocation();
