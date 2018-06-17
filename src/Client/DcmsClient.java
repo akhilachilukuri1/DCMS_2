@@ -31,7 +31,7 @@ public class DcmsClient {
 				BufferedReader br = new BufferedReader(
 						new InputStreamReader(System.in));
 				System.out.println("enter the managerID");
-				String managerID = br.readLine();
+				String managerID = br.readLine().trim();
 				String manager_number = managerID.substring(3, 6);
 				Matcher matchID = validate.matcher(manager_number);
 				if (managerID.length() != 7) {
@@ -70,26 +70,26 @@ public class DcmsClient {
 					System.out.println("5) Transfer the record");
 					System.out.println("6) Logout manager");
 					try {
-						Integer choice = Integer.parseInt(br.readLine());
+						Integer choice = Integer.parseInt(br.readLine().trim());
 
 						switch (choice) {
 						case 1:
 							System.out
 									.println("Enter the first name of the teacher");
-							String firstNameT = br.readLine();
+							String firstNameT = br.readLine().trim();
 
 							System.out.println("Enter the last name of the teacher");
-							String lastNameT = br.readLine();
+							String lastNameT = br.readLine().trim();
 
 							System.out.println("Enter the address of the teacher");
-							String addressT = br.readLine();
+							String addressT = br.readLine().trim();
 							String phoneNumber = null;
 							String phoneT;
 							
 							while(true) {
 							System.out.println(
 									"Enter the Phone number in 123-456-7689 format");
-							phoneNumber = br.readLine();
+							phoneNumber = br.readLine().trim();
 							Pattern pattern = Pattern
 									.compile("\\d{3}-\\d{3}-\\d{4}");
 							Matcher matcher = pattern.matcher(phoneNumber);
@@ -106,14 +106,26 @@ public class DcmsClient {
 								continue;
 							}
 						}
+							String specilizationT = null;
+							while(true)
+							{
 							System.out.println(
-									"Enter the specilization of the teacher");
-							String specilizationT = br.readLine();
+									"Enter the specialization of the teacher");
+							specilizationT = br.readLine().trim();
+							if( specilizationT.matches("[0-9]*$"))
+							{
+								System.out.println(" specialization of the teacher Contains Number");
+								continue;
+							}
+							else
+								break;
+							
+							}
 							String locationT;
 							String location = null;
 							while(true) {
 							System.out.println("Enter the Location(MTL/LVL/DDO)");
-							location = br.readLine();
+							location = br.readLine().trim();
 
 							
 							logManager.logger.log(Level.INFO, "Validating the status"
@@ -145,17 +157,17 @@ public class DcmsClient {
 							// Create the Student record
 							System.out
 									.println("Enter the first name of the student");
-							String firstNameS = br.readLine();
+							String firstNameS = br.readLine().trim();
 							System.out.println("Enter the last name of the student");
-							String lastNameS = br.readLine();
+							String lastNameS = br.readLine().trim();
 							System.out.println(
 									"Enter the number of courses registered by the student");
-							int coursesCount = Integer.parseInt(br.readLine());
+							int coursesCount = Integer.parseInt(br.readLine().trim());
 							System.out.println("Enter the " + coursesCount
 									+ " courses(one per line) registered by the student");
 							String courses = null;
 							for (int n = 0; n < coursesCount; n++) {
-								String course = br.readLine();
+								String course = br.readLine().trim();
 								if (n == 0)
 									courses = course;
 								else
@@ -173,7 +185,7 @@ public class DcmsClient {
 							
 							while(true) {
 							System.out.println("Enter the status of student (Active/Inactive)");
-							status = br.readLine();
+							status = br.readLine().trim();
 							if ((status.toUpperCase().equals("ACTIVE"))) 
 								break;
 								 else if ((status.toUpperCase().equals("INACTIVE"))) 
@@ -191,8 +203,8 @@ public class DcmsClient {
 								{
 								System.out.println(
 										"Enter the date when the student became active(Format :: 29-02-2018)");
-								Pattern datePattern = Pattern.compile("([0-9]{2})-([0-1][1-9])-([0-9]{4})"); 
-								statusDate = br.readLine();
+								Pattern datePattern = Pattern.compile("([0-3][0-9])-([0-1][1-9])-([0-9]{4})"); 
+								statusDate = br.readLine().trim();
 								Matcher matcherDate = datePattern.matcher(statusDate);
 								if(matcherDate.matches())
 								break;
@@ -207,8 +219,8 @@ public class DcmsClient {
 								{
 								System.out.println(
 										"Enter the date when the student became inactive(Format :: 29-02-2018)");
-								Pattern datePattern = Pattern.compile("([0-9]{2})-([0-1][1-9])-([0-9]{4})"); 
-								statusDate = br.readLine();
+								Pattern datePattern = Pattern.compile("([0-3][0-9])-([0-1][1-9])-([0-9]{4})"); 
+								statusDate = br.readLine().trim();
 								Matcher matcherDate = datePattern.matcher(statusDate);
 								if(matcherDate.matches())
 								break;
@@ -217,7 +229,8 @@ public class DcmsClient {
 									System.out.println("Invalid Date Format - enter in correct format");
 									continue;
 								}
-							}							}
+							}	
+						}
 							
 							System.out.println(serverloc.createSRecord(managerID
 									+ "," + firstNameS + "," + lastNameS + ","
@@ -236,7 +249,7 @@ public class DcmsClient {
 						case 4:
 							// Edit the record
 							System.out.println("Enter the Record ID");
-							String recordID = br.readLine();
+							String recordID = br.readLine().trim();
 							String type = recordID.substring(0, 2);
 							String fieldName = null;
 							String newCourses = null;
@@ -246,7 +259,7 @@ public class DcmsClient {
 										"Enter the  field number  to be updated (1.address 2.phone or 3.location)");
 								try {
 
-									fieldNum = Integer.parseInt((br.readLine()));
+									fieldNum = Integer.parseInt((br.readLine().trim()));
 								} catch (NumberFormatException e) {
 									System.out.println(
 											"wrong field number!!...please try again");
@@ -266,7 +279,7 @@ public class DcmsClient {
 								
 								System.out.println(
 										"Enter field number to be updated (1.CoursesRegistered 2.status or 3.statusDate)");
-								fieldNum = Integer.parseInt((br.readLine()));
+								fieldNum = Integer.parseInt((br.readLine().trim()));
 								if (fieldNum == 1)
 									fieldName = "CoursesRegistered";
 								else if (fieldNum == 2)
@@ -285,12 +298,12 @@ public class DcmsClient {
 							if (fieldName.equals("CoursesRegistered")) {
 								System.out.println(
 										"Enter the number of courses registered by the student");
-								coursesCount = Integer.parseInt(br.readLine());
+								coursesCount = Integer.parseInt(br.readLine().trim());
 								String NewCourses = null;
 								System.out.println(
 										"Enter the new courses registered by the student");
 								for (int n = 0; n < coursesCount; n++) {
-									String temp = br.readLine();
+									String temp = br.readLine().trim();
 									if (n == 0)
 										NewCourses = temp;
 									else
@@ -330,7 +343,7 @@ public class DcmsClient {
 									{
 									System.out.println(
 											"Enter the new Location(MTL/LVL/DDO)");
-									location = br.readLine();
+									location = br.readLine().trim();
 									if (location.equalsIgnoreCase("LVL")
 											|| location.equalsIgnoreCase("MTL")
 											|| location.equalsIgnoreCase("DDO")) {
@@ -346,8 +359,42 @@ public class DcmsClient {
 									}
 								}
 
-								} else {
-									newValue = br.readLine();
+								} 
+								else if (fieldName.equals("Status")) {
+									while(true) {
+										System.out.println("Enter the status of student (Active/Inactive)");
+										newValue = br.readLine().trim();
+										status = newValue;
+										if ((status.toUpperCase().equals("ACTIVE"))) 
+											break;
+											 else if ((status.toUpperCase().equals("INACTIVE"))) 
+											break;
+											 else {
+												System.out.println("Status assigned Invalid!");
+												status = "Invalid Status";
+												continue;
+											}
+										}
+								}
+								else if (fieldName.equals("StatusDate")) {
+									while(true)
+									{
+									System.out.println("Enter the new Date (Format :: 29-02-2018)");
+									Pattern datePattern = Pattern.compile("([0-3][0-9])-([0-1][1-9])-([0-9]{4})"); 
+									statusDate = br.readLine().trim();
+									newValue = statusDate;
+									Matcher matcherDate = datePattern.matcher(statusDate);
+									if(matcherDate.matches())
+									break;
+									else
+									{
+										System.out.println("Invalid Date Format - enter in correct format");
+										continue;
+									}
+								}
+								}
+								else {
+									newValue = br.readLine().trim();
 
 								}
 								System.out.println(serverloc.editRecord(managerID,
@@ -356,15 +403,15 @@ public class DcmsClient {
 							break;
 						case 5:
 							System.out.println("Enter the record ID");
-							recordID = br.readLine();
+							recordID = br.readLine().trim();
 							System.out.println("Enter the location(MTL/LVL/DDO)");
-							location = br.readLine();
+							location = br.readLine().trim();
 							while (!location.equalsIgnoreCase("MTL")
 									&& !location.equalsIgnoreCase("LVL")
 									&& !location.equalsIgnoreCase("DDO")) {
 								System.out.println(
 										"Invalid loaction! Please try again");
-								location = br.readLine();
+								location = br.readLine().trim();
 							}
 							serverloc.transferRecord(managerID, recordID, location);
 							break;
