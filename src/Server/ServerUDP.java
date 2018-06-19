@@ -30,13 +30,12 @@ public class ServerUDP extends Thread {
 	/**
 	 * 
 	 * ServerUDP constructor initializes the UDP socket port number
-	 * 
-	 * @param loc
-	 *            is an object for the ServerCentreLocation
-	 * @param logger
-	 *            is used to set the log messages
-	 * @param serverImp
-	 *            is an object to access serverImpl class
+	 * of each location
+	 * @param loc location of UDP server
+	 * @param loggerlogger instance of server 
+	 * is used to set the log messages
+	 * @param serverImp object that holds the corba server instance
+	 * for communication
 	 */
 
 	public ServerUDP(ServerCenterLocation loc, Logger logger,
@@ -70,8 +69,8 @@ public class ServerUDP extends Thread {
 	}
 
 	/**
-	 * Is evaluated when a message is received and is forwarded to the
-	 * UDPRequestServer
+	 * UDP server thread that keeps listening continuously 
+	 * for any new request and receives the request
 	 */
 
 	@Override

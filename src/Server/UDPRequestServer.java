@@ -40,7 +40,8 @@ public class UDPRequestServer extends Thread {
 	}
 
 	/**
-	 * Forwards the request made by the UDP Server
+	 *Serves the actual UDP request
+	 *Either Get record count or Transfer Record
 	 */
 
 	@Override
@@ -79,6 +80,10 @@ public class UDPRequestServer extends Thread {
 		}
 	}
 
+	/*
+	 * This method adds the record to the given server location's
+	 * hashmap
+	 */
 	private String transferRecord(String recordToBeAdded) {
 		String temp[] = recordToBeAdded.split(",");
 		String managerID = temp[0];
@@ -113,7 +118,7 @@ public class UDPRequestServer extends Thread {
 	}
 
 	/**
-	 * Returns the number of entires made in the hasahmap
+	 * Returns the number of entries made in the hashmap
 	 *
 	 */
 

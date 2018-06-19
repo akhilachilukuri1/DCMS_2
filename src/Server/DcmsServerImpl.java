@@ -22,14 +22,15 @@ import Models.Teacher;
 
 /**
  * 
- * DcmsServerImpl performs all the functionality for MTL,LVL and DDO server
- * Locations
+ * DcmsServerImpl class includes all the server operations'
+ * implementations, implements all the methods in the IDL interface
+ * Performs the necessary operations and returns the result/acknowledgement
+ * back to the Client.
  *
  */
 
 class DcmsServerImpl extends DcmsPOA {
 	private ORB orb;
-
 	LogManager logManager;
 	ServerUDP serverUDP;
 	String IPaddress;
@@ -39,35 +40,17 @@ class DcmsServerImpl extends DcmsPOA {
 	String recordsCount;
 	String location;
 
+	/*DcmsServerImpl Constructor to initializes the 
+	 * variables used for the implementation
+	 * @param loc The server location for which the 
+	 * server implementation should be initialized
+	 */
 	public DcmsServerImpl(ServerCenterLocation loc) {
 		logManager = new LogManager(loc.toString());
 		recordsMap = new HashMap<>();
 		serverUDP = new ServerUDP(loc, logManager.logger, this);
 		serverUDP.start();
 		location = loc.toString();
-		setIPAddress(loc);
-	}
-
-	public void setORB(ORB orb_val) {
-		orb = orb_val;
-	}
-
-	public void shutdown() {
-		orb.shutdown(false);
-	}
-
-	private void setIPAddress(ServerCenterLocation loc) {
-		switch (loc) {
-		case MTL:
-			IPaddress = Constants.MTL_SERVER_ADDRESS;
-			break;
-		case LVL:
-			IPaddress = Constants.LVL_SERVER_ADDRESS;
-			break;
-		case DDO:
-			IPaddress = Constants.DDO_SERVER_ADDRESS;
-			break;
-		}
 	}
 
 	/**
@@ -206,9 +189,11 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	/**
-	 * invokes record count on the corresponding MTL/LVL/DDO server to get record
-	 * count on all the servers
-	 * 
+	 * Invokes record count request on MTL/LVL/DDO server to get record
+	 * count from all the servers
+	 * Creates UDPRequest Provider objects for each request and creates
+	 * separate thread for each request.
+	 * And makes sure each thread is complete and returns the result
 	 */
 
 	@Override
@@ -277,8 +262,9 @@ class DcmsServerImpl extends DcmsPOA {
 	/**
 	 * Performs the transfer record to the remoteCenterServer by sending the
 	 * appropriate packet to the UDPRequestProvider thread
-	 *
-	 * 
+	 * Creates UDPRequest Provider objects for each request and creates
+	 * separate thread for each request.
+	 * And makes sure each thread is complete and returns the result
 	 * @param managerID
 	 *            gets the managerID
 	 * @param recordID
@@ -322,6 +308,11 @@ class DcmsServerImpl extends DcmsPOA {
 		return "Transfer record operation unsuccessful!";
 	}
 
+	/*
+	 * Removerecordaftertransfer method, removes the record from current server
+	 * after the transfer operation is performed.
+	 * @param recordID record id of the student/teacher to be removed
+	 */
 	private synchronized String removeRecordAfterTransfer(String recordID) {
 		for (Entry<String, List<Record>> element : recordsMap.entrySet()) {
 			List<Record> mylist = element.getValue();
@@ -335,6 +326,10 @@ class DcmsServerImpl extends DcmsPOA {
 		return "success";
 	}
 
+	/*
+	 * Get record for transfer method gets the record from the hashmap
+	 * given the record ID of the student/teacher
+	 */
 	private synchronized Record getRecordForTransfer(String recordID) {
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
 			List<Record> mylist = value.getValue();
