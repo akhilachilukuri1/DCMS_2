@@ -15,6 +15,7 @@ import org.omg.PortableServer.*;
 import org.omg.PortableServer.POA;
 
 import Conf.ServerCenterLocation;
+
 /*
  * DcmsServer class creates the CORBA server instance and establishes the initial
  * communication between the client and the server for performing operations
@@ -33,8 +34,10 @@ public class DcmsServer {
 			System.exit(1);
 		}
 	}
-	/* Creates and initializes the log directories in the server side
-	 * One log directory per location is created
+
+	/*
+	 * Creates and initializes the log directories in the server side One log
+	 * directory per location is created
 	 */
 	private static void init() {
 
@@ -47,11 +50,13 @@ public class DcmsServer {
 		boolean globalDir = new File(Constants.LOG_DIR + "ServerGlobal").mkdir();
 	}
 
-	/* Server's main method to initialize and start the server instances
-	 * Creates the orbd objects and performs the naming service
-	 * Bind the corba objects to establishes connection to the client
-	 * @param args[] - port number and IP address
-	 * Corba server starts listening the given port number and IP address 
+	/*
+	 * Server's main method to initialize and start the server instances Creates the
+	 * orbd objects and performs the naming service Bind the corba objects to
+	 * establishes connection to the client
+	 * 
+	 * @param args[] - port number and IP address Corba server starts listening the
+	 * given port number and IP address
 	 */
 	public static void main(String args[]) {
 		try {

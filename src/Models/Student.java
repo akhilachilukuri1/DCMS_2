@@ -3,6 +3,12 @@ package Models;
 import java.io.Serializable;
 import java.util.List;
 
+/*
+ * Student Model Class that holds the student's attributes
+ * extends the base record class, to enable
+ * easy marshalling and unmarshalling between client and server
+ * has the getters and setters for the attributes
+ */
 public class Student extends Record implements Serializable {
 	String firstName;
 	String lastName;
@@ -12,8 +18,9 @@ public class Student extends Record implements Serializable {
 	String studentID;
 	String ManagerID;
 
-	public Student(String managerID, String studentID, String firstName, String lastname,
-			List<String> CoursesRegistered, String status, String statusDate) {
+	public Student(String managerID, String studentID, String firstName,
+			String lastname, List<String> CoursesRegistered, String status,
+			String statusDate) {
 		super(studentID, firstName, lastname);
 		this.setManagerID(managerID);
 		this.setCoursesRegistered(CoursesRegistered);
@@ -78,13 +85,16 @@ public class Student extends Record implements Serializable {
 	}
 
 	public String serialize() {
-		return "Student" + getManagerID() + getRecordID() + "," + getFirstName() + "," + getLastName() + ","
-				+ getCoursesRegistered() + "," + isStatus() + "," + getStatusDate();
+		return "Student" + getManagerID() + getRecordID() + "," + getFirstName()
+				+ "," + getLastName() + "," + getCoursesRegistered() + ","
+				+ isStatus() + "," + getStatusDate();
 	}
 
 	public String toString() {
-		return this.getManagerID() + "," + this.getRecordID() + "," + this.getFirstName() + "," + this.getLastName()
-				+ "," + this.getCoursesRegistered() + "," + this.isStatus() + "," + this.getStatusDate();
+		return this.getManagerID() + "," + this.getRecordID() + ","
+				+ this.getFirstName() + "," + this.getLastName() + ","
+				+ this.getCoursesRegistered() + "," + this.isStatus() + ","
+				+ this.getStatusDate();
 	}
 
 }

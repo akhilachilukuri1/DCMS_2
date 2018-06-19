@@ -24,9 +24,10 @@ public class UDPRequestServer extends Thread {
 	 * UDPRequestServer forwards the request received to the respective server port
 	 * 
 	 * @param pkt
-	 *            is the datagram packet
+	 *            datagram packet that holds the packet information
 	 * @param serverImp
-	 *            is the server Impl object
+	 *            server instance of the requested location
+	 * 
 	 */
 
 	public UDPRequestServer(DatagramPacket pkt, DcmsServerImpl serverImp) {
@@ -40,8 +41,8 @@ public class UDPRequestServer extends Thread {
 	}
 
 	/**
-	 *Serves the actual UDP request
-	 *Either Get record count or Transfer Record
+	 * Serves the actual UDP request Either Gets the record count or Transfers the
+	 * Record
 	 */
 
 	@Override
@@ -81,8 +82,7 @@ public class UDPRequestServer extends Thread {
 	}
 
 	/*
-	 * This method adds the record to the given server location's
-	 * hashmap
+	 * This method adds the record to the given server location's hashmap
 	 */
 	private String transferRecord(String recordToBeAdded) {
 		String temp[] = recordToBeAdded.split(",");
@@ -99,7 +99,6 @@ public class UDPRequestServer extends Thread {
 			Teacher teacherObj = new Teacher(managerID, recordID, firstName,
 					lastName, address, phone, specialization, location);
 			String message = server.addRecordToHashMap(key, teacherObj, null);
-			// System.out.println(message + " " + server.recordsMap.get(key));
 			return message + " " + server.recordsMap.get(key);
 		} else {
 			String firstName = temp[2];
@@ -112,7 +111,6 @@ public class UDPRequestServer extends Thread {
 					lastName, courseList, status, statusDate);
 			String key = lastName.substring(0, 1);
 			String message = server.addRecordToHashMap(key, null, studentObj);
-			// System.out.println(message + " " + server.recordsMap.get(key));
 			return message + " " + server.recordsMap.get(key);
 		}
 	}
