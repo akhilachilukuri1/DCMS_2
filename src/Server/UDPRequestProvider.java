@@ -23,10 +23,13 @@ public class UDPRequestProvider extends Thread {
 	 * UDPRequestProvider handles the UDP message call and transfers the necessary
 	 * record
 	 * 
-	 * @param server serverimpl class instance
-	 * @param requestType UDP request type - transfer/record count
-	 * @param recordForTransfer The record to be transferred
-	 *            
+	 * @param server
+	 *            serverimpl class instance
+	 * @param requestType
+	 *            UDP request type - transfer/record count
+	 * @param recordForTransfer
+	 *            The record to be transferred
+	 * 
 	 */
 	public UDPRequestProvider(DcmsServerImpl server, String requestType,
 			Record recordForTransfer) throws IOException {
@@ -44,8 +47,8 @@ public class UDPRequestProvider extends Thread {
 	}
 
 	/**
-	 * UDP Server thread that handles the incoming packets
-	 * Routes the packet to the respective server address
+	 * UDP Server thread that handles the incoming packets Routes the packet to the
+	 * respective server address
 	 */
 
 	@Override

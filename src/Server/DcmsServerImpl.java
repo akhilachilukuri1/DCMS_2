@@ -22,10 +22,9 @@ import Models.Teacher;
 
 /**
  * 
- * DcmsServerImpl class includes all the server operations'
- * implementations, implements all the methods in the IDL interface
- * Performs the necessary operations and returns the result/acknowledgement
- * back to the Client.
+ * DcmsServerImpl class includes all the server operations' implementations,
+ * implements all the methods in the IDL interface Performs the necessary
+ * operations and returns the result/acknowledgement back to the Client.
  *
  */
 
@@ -40,10 +39,12 @@ class DcmsServerImpl extends DcmsPOA {
 	String recordsCount;
 	String location;
 
-	/*DcmsServerImpl Constructor to initializes the 
-	 * variables used for the implementation
-	 * @param loc The server location for which the 
-	 * server implementation should be initialized
+	/*
+	 * DcmsServerImpl Constructor to initializes the variables used for the
+	 * implementation
+	 * 
+	 * @param loc The server location for which the server implementation should be
+	 * initialized
 	 */
 	public DcmsServerImpl(ServerCenterLocation loc) {
 		logManager = new LogManager(loc.toString());
@@ -189,11 +190,10 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	/**
-	 * Invokes record count request on MTL/LVL/DDO server to get record
-	 * count from all the servers
-	 * Creates UDPRequest Provider objects for each request and creates
-	 * separate thread for each request.
-	 * And makes sure each thread is complete and returns the result
+	 * Invokes record count request on MTL/LVL/DDO server to get record count from
+	 * all the servers Creates UDPRequest Provider objects for each request and
+	 * creates separate thread for each request. And makes sure each thread is
+	 * complete and returns the result
 	 */
 
 	@Override
@@ -261,10 +261,10 @@ class DcmsServerImpl extends DcmsPOA {
 
 	/**
 	 * Performs the transfer record to the remoteCenterServer by sending the
-	 * appropriate packet to the UDPRequestProvider thread
-	 * Creates UDPRequest Provider objects for each request and creates
-	 * separate thread for each request.
-	 * And makes sure each thread is complete and returns the result
+	 * appropriate packet to the UDPRequestProvider thread Creates UDPRequest
+	 * Provider objects for each request and creates separate thread for each
+	 * request. And makes sure each thread is complete and returns the result
+	 * 
 	 * @param managerID
 	 *            gets the managerID
 	 * @param recordID
@@ -282,8 +282,9 @@ class DcmsServerImpl extends DcmsPOA {
 			Record record = getRecordForTransfer(recordID);
 			if (record == null) {
 				return "RecordID unavailable!";
-			}else if(remoteCenterServerName.equals(this.location)) {
-				return "Please enter a valid location to transfer. The record is already present in "+location;
+			} else if (remoteCenterServerName.equals(this.location)) {
+				return "Please enter a valid location to transfer. The record is already present in "
+						+ location;
 			}
 			req = new UDPRequestProvider(
 					DcmsServer.serverRepo.get(remoteCenterServerName),
@@ -311,6 +312,7 @@ class DcmsServerImpl extends DcmsPOA {
 	/*
 	 * Removerecordaftertransfer method, removes the record from current server
 	 * after the transfer operation is performed.
+	 * 
 	 * @param recordID record id of the student/teacher to be removed
 	 */
 	private synchronized String removeRecordAfterTransfer(String recordID) {
@@ -327,8 +329,8 @@ class DcmsServerImpl extends DcmsPOA {
 	}
 
 	/*
-	 * Get record for transfer method gets the record from the hashmap
-	 * given the record ID of the student/teacher
+	 * Get record for transfer method gets the record from the hashmap given the
+	 * record ID of the student/teacher
 	 */
 	private synchronized Record getRecordForTransfer(String recordID) {
 		for (Entry<String, List<Record>> value : recordsMap.entrySet()) {
