@@ -11,5 +11,5 @@ Distributed Systems - DCMS Assignment II
 
 •	Client and Server Logs are stored in DCMS_2/Logs/ (Configurable in DCMS_2/src/Conf/Constants.java).
 
-•	Enter the inputs following the instructions on
+•	Enter the inputs following the instructions on the client side
 
