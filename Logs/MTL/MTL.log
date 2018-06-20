@@ -1,0 +1,14 @@
+Jun 20, 2018 7:35:06 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 20, 2018 7:35:45 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 20, 2018 7:37:57 PM Server.ServerUDP <init>
+INFO: MTL UDP Server Started
+Jun 20, 2018 7:38:32 PM Server.DcmsServerImpl createTRecord
+INFO: Teacher record created TR1 by Manager : MTL4323
+Jun 20, 2018 7:38:49 PM Server.DcmsServerImpl createSRecord
+INFO: Student record created SR1 by manager : MTL4323
+Jun 20, 2018 7:39:07 PM Server.DcmsServerImpl editSRRecord
+INFO: MTL4323Updated the records	MTL
+Jun 20, 2018 7:39:19 PM Server.DcmsServerImpl transferRecord
+INFO: Record created in  DDO  and removed from MTL

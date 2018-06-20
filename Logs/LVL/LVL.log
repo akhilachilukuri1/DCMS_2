@@ -1,0 +1,10 @@
+Jun 20, 2018 7:35:06 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 20, 2018 7:35:45 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 20, 2018 7:37:57 PM Server.ServerUDP <init>
+INFO: LVL UDP Server Started
+Jun 20, 2018 7:38:55 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL
+Jun 20, 2018 7:39:24 PM Server.ServerUDP run
+INFO: Received GET_RECORD_COUNT from LVL

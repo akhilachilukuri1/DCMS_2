@@ -1,0 +1,28 @@
+Jun 20, 2018 7:38:32 PM Client.ClientImp createTRecord
+INFO: Initiating T record object creation request
+Jun 20, 2018 7:38:32 PM Client.ClientImp createTRecord
+INFO: Teacher record is created and assigned with TR1
+Jun 20, 2018 7:38:49 PM Client.ClientImp createSRecord
+INFO: Initiating S record object creation request
+Jun 20, 2018 7:38:49 PM Client.ClientImp createSRecord
+INFO: student record is created and assigned with SR1
+Jun 20, 2018 7:38:55 PM Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 20, 2018 7:38:55 PM Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 20, 2018 7:38:55 PM Client.ClientImp getRecordCounts
+INFO: MTL 2 , LVL 0 , DDO 0
+Jun 20, 2018 7:39:07 PM Client.ClientImp editRecord
+INFO: MTL4323has Initiated the record edit request for SR1
+Jun 20, 2018 7:39:07 PM Client.ClientImp editRecord
+INFO: Updated record with status :: Inactive
+Jun 20, 2018 7:39:19 PM Client.ClientImp transferRecord
+INFO: Initiating the record transfer request
+Jun 20, 2018 7:39:19 PM Client.ClientImp transferRecord
+INFO: Record created in DDOand removed from MTL
+Jun 20, 2018 7:39:24 PM Client.ClientImp getRecordCounts
+INFO: Initiating record count request
+Jun 20, 2018 7:39:24 PM Client.ClientImp getRecordCounts
+INFO: received....count as follows
+Jun 20, 2018 7:39:24 PM Client.ClientImp getRecordCounts
+INFO: MTL 1 , LVL 0 , DDO 1

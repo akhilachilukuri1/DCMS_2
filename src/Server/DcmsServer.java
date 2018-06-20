@@ -25,7 +25,6 @@ public class DcmsServer {
 	static Dcms mtlhref, lvlhref, ddohref;
 
 	static {
-		System.out.println("Starting CORBA Service!");
 		try {
 			Runtime.getRuntime()
 					.exec("orbd -ORBInitialPort 1050 -ORBInitialHost localhost");
@@ -33,6 +32,7 @@ public class DcmsServer {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		System.out.println("CORBA Service Started!");
 	}
 
 	/*
